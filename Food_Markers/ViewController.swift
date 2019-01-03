@@ -34,10 +34,20 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         super.viewWillAppear(animated)
         
         // Create a session configuration
+        
+        guard let trackedImages = ARReferenceImage.referenceImages(inGroupNamed: "Markers", bundle: Bundle.main)
+            else {
+                print("No existen imagenes")
+                return
+        }
+        
         let configuration = ARWorldTrackingConfiguration()
-
+        
+        configuration.detectionImages = trackedImages
+        
+        
         // Run the view's session
-        sceneView.session.run(configuration)
+        sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -46,6 +56,21 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Pause the view's session
         sceneView.session.pause()
     }
+    
+    
+    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
+        let node = SCNNode()
+        if let imageAnchor = anchor as? ARImageAnchor {
+            let plane = SCNPlane(width: imageAnchor.referenceImage.physicalSize.width, height: imageAnchor.referenceImage.physicalSize.height)
+            plane.firstMaterial?.diffuse.contents = UIColor(white: 1, alpha: 0.8)
+            let planeNode = SCNNode(geometry: plane)
+            planeNode.eulerAngles.x = -.pi / 2
+            node.addChildNode(planeNode)
+        }
+        return node
+    }
+    
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -62,6 +87,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         return node
     }
 */
+    
+    
     
     func session(_ session: ARSession, didFailWithError error: Error) {
         // Present an error message to the user
