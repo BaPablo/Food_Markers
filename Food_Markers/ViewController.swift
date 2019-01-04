@@ -24,7 +24,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.showsStatistics = true
         
         // Create a new scene
-        let scene = SCNScene(named: "art.scnassets/ship.scn")!
+        let scene = SCNScene(named: "art.scnassets/apple.scn")!
         
         // Set the scene to the view
         sceneView.scene = scene
@@ -33,16 +33,16 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // Create a session configuration
-        
-        guard let trackedImages = ARReferenceImage.referenceImages(inGroupNamed: "Markers", bundle: Bundle.main)
+        //Carga de los marcadores a buscar
+        guard let trackedImages = ARReferenceImage.referenceImages(inGroupNamed: "Markers", bundle: nil)
             else {
-                print("No existen imagenes")
+                print("No existen marcadores")
                 return
         }
-        
+        // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
         
+        // Agregar las imagenes cargadas previamente a la configuración
         configuration.detectionImages = trackedImages
         
         
@@ -57,20 +57,29 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.session.pause()
     }
     
-    
-    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        let node = SCNNode()
-        if let imageAnchor = anchor as? ARImageAnchor {
-            let plane = SCNPlane(width: imageAnchor.referenceImage.physicalSize.width, height: imageAnchor.referenceImage.physicalSize.height)
-            plane.firstMaterial?.diffuse.contents = UIColor(white: 1, alpha: 0.8)
+    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        guard let imageAnchor = anchor as? ARImageAnchor else { return }
+        
+        //Cargar el plano de la escena
+       /*
+        //Ubicacion de la escena y declaracion de la constante
+        let planeScene = SCNScene(named: "art.scnassets/Plane.scn")!
+        let planeNode = planeScene.rootNode.childNode(withName: "plane", recursively:true)!
+        
+        planeNode.transform = SCNMatrix4(imageAnchor.transform)
+        /*
+        
+        plane.firstMaterial?.diffuse.contents = UIColor(white: 1, alpha: 0.8)
             let planeNode = SCNNode(geometry: plane)
             planeNode.eulerAngles.x = -.pi / 2
             node.addChildNode(planeNode)
         }
-        return node
-    }
+        return node */
     
+        sceneView.scene.rootNode.addChildNode(planeNode)
+         */
     
+        }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
