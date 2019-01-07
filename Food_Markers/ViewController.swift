@@ -21,31 +21,33 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.delegate = self
         
         // Show statistics such as fps and timing information
-        sceneView.showsStatistics = true
+        //sceneView.showsStatistics = true
+
+        //Displays the coordinate system (x = red, y = green , z=blue)
+        sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigins]
         
         // Create a new scene
         let scene = SCNScene(named: "art.scnassets/apple.scn")!
         
         // Set the scene to the view
         sceneView.scene = scene
+        sceneView.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        //Carga de los marcadores a buscar
-        guard let trackedImages = ARReferenceImage.referenceImages(inGroupNamed: "Markers", bundle: nil)
+        //Busqueda del directorio con las imagenes o marcadores a detectar
+        guard let markers = ARReferenceImage.referenceImages(inGroupNamed: "Markers", bundle: nil)
             else {
-                print("No existen marcadores")
-                return
+                fatalError("No se encuentró un directorio de marcadores asociado")
         }
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
         
-        // Agregar las imagenes cargadas previamente a la configuración
-        configuration.detectionImages = trackedImages
-        
-        
+        // Se define donde estan guardados los marcadores
+        configuration.detectionImages = markers
+                
         // Run the view's session
         sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
     }
@@ -58,27 +60,15 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        guard let imageAnchor = anchor as? ARImageAnchor else { return }
+        //guard let imageAnchor = anchor as? ARImageAnchor else { return }
         
-        //Cargar el plano de la escena
-       /*
-        //Ubicacion de la escena y declaracion de la constante
-        let planeScene = SCNScene(named: "art.scnassets/Plane.scn")!
-        let planeNode = planeScene.rootNode.childNode(withName: "plane", recursively:true)!
-        
-        planeNode.transform = SCNMatrix4(imageAnchor.transform)
-        /*
-        
-        plane.firstMaterial?.diffuse.contents = UIColor(white: 1, alpha: 0.8)
-            let planeNode = SCNNode(geometry: plane)
-            planeNode.eulerAngles.x = -.pi / 2
-            node.addChildNode(planeNode)
+        // Si el ancla que se crea es una imagen, significa que se reconocio una de los marcadores
+        if anchor is ARImageAnchor {
+            print("Marcador reconocido")
+                        
         }
-        return node */
-    
-        sceneView.scene.rootNode.addChildNode(planeNode)
-         */
-    
+        
+
         }
     
     override func didReceiveMemoryWarning() {
