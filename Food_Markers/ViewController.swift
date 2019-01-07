@@ -23,24 +23,23 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Show statistics such as fps and timing information
         //sceneView.showsStatistics = true
 
-        //Displays the coordinate system (x = red, y = green , z=blue)
-        sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigins]
+        //Displays the coordinate system (x = red, y = green , z = blue)
+        sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin]
         
         // Create a new scene
-        let scene = SCNScene(named: "art.scnassets/apple.scn")!
+        let scene = SCNScene()
         
         // Set the scene to the view
         sceneView.scene = scene
-        sceneView.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        //Busqueda del directorio con las imagenes o marcadores a detectar
+        //Busqueda del directorio con los marcadores a detectar
         guard let markers = ARReferenceImage.referenceImages(inGroupNamed: "Markers", bundle: nil)
             else {
-                fatalError("No se encuentró un directorio de marcadores asociado")
+                fatalError("No se encuentra un directorio de marcadores asociado")
         }
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
@@ -50,6 +49,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                 
         // Run the view's session
         sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+    
+    
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -62,10 +63,17 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         //guard let imageAnchor = anchor as? ARImageAnchor else { return }
         
-        // Si el ancla que se crea es una imagen, significa que se reconocio una de los marcadores
+        // Si el ancla que se crea es una imagen, significa que se reconocio uno de los marcadores
         if anchor is ARImageAnchor {
-            print("Marcador reconocido")
-                        
+            /*let appleScene = SCNScene(named: "apple.scn")
+            let appleNode = appleScene?.rootNode.childNode(withName: "parentNode", recursively: true)!
+            
+            appleNode?.position = SCNVector3(anchor.transform.columns.3.x,anchor.transform.columns.3.y + 0.1, anchor.transform.columns.3.z)
+            
+            node.addChildNode(appleNode!)
+ */
+            
+            print("Imagen encontrada")
         }
         
 
