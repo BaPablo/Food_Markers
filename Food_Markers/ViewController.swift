@@ -25,12 +25,14 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
         //Displays the coordinate system (x = red, y = green , z = blue)
         sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin]
-        
+    /*
         // Create a new scene
         let scene = SCNScene()
         
         // Set the scene to the view
         sceneView.scene = scene
+ 
+    */
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -65,18 +67,29 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // Si el ancla que se crea es una imagen, significa que se reconocio uno de los marcadores
         if anchor is ARImageAnchor {
+<<<<<<< HEAD
             
             let planeNode = self.getPlaneNode(withReferenceImage: imageAnchor.referenceImages)
             planeNode.opacity = 0.0
             planeNode.eulerAngles.x = .pi / 2
             planeNode.runAction(self.fadeAction)
             node.addChildNode(planeNode)
+=======
+            DispatchQueue.global().async {
+            print("Marcador encontrado")
+            let appleScene = SCNScene(named: "art.scnassets/apple.scn")!
+            let appleNode = appleScene.rootNode.childNode(withName: "parentNode", recursively: true)!
+>>>>>>> 1c911f1f1cd527672416bb276e4f36ebddecf865
             
-            print("Imagen encontrada")
-        }
-        
+                DispatchQueue.main.async {
+                    appleNode.position = SCNVector3(anchor.transform.columns.3.x,anchor.transform.columns.3.y + 0.1, anchor.transform.columns.3.z)
+                    
+                    node.addChildNode(appleNode)
 
+                }
+            }
         }
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
