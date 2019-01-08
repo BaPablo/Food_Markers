@@ -6,6 +6,9 @@
   "resources" : [
     {
       "filename" : "apple_logo.arreferenceimage"
+    },
+    {
+      "filename" : "rice.arreferenceimage"
     }
   ]
 }
