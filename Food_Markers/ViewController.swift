@@ -19,20 +19,14 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // Set the view's delegate
         sceneView.delegate = self
-        
-        // Show statistics such as fps and timing information
-        //sceneView.showsStatistics = true
-
-        //Displays the coordinate system (x = red, y = green , z = blue)
-        sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin]
-    /*
+    /*  
         // Create a new scene
         let scene = SCNScene()
         
         // Set the scene to the view
         sceneView.scene = scene
- 
     */
+    
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -63,55 +57,18 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        //guard let imageAnchor = anchor as? ARImageAnchor else { return }
+        //guard  else { return }
         
         // Si el ancla que se crea es una imagen, significa que se reconocio uno de los marcadores
         if anchor is ARImageAnchor {
-            DispatchQueue.global().async {
             print("Marcador encontrado")
+            let imageAnchor = anchor as! ARImageAnchor
             let appleScene = SCNScene(named: "art.scnassets/apple.scn")!
-            let appleNode = appleScene.rootNode.childNode(withName: "parentNode", recursively: true)!
+            //withName = Identity  --> Name of the node 
+           if let appleNode = appleScene.rootNode.childNode(withName: "apple", recursively: true) {
+                appleNode?.position = SCNVector3(anchor.transform.columns.3.x,anchor.transform.columns.3.y + 0.1, anchor.transform.columns.3.z)
+                appleScene.scene.rootNode.addChildNode(appleNode)
+           }
             
-                DispatchQueue.main.async {
-                    appleNode.position = SCNVector3(anchor.transform.columns.3.x,anchor.transform.columns.3.y + 0.1, anchor.transform.columns.3.z)
-                    
-                    node.addChildNode(appleNode)
-
-                }
-            }
         }
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Release any cached data, images, etc that aren't in use.
-    }
-
-    // MARK: - ARSCNViewDelegate
-    
-/*
-    // Override to create and configure nodes for anchors added to the view's session.
-    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        let node = SCNNode()
-     
-        return node
-    }
-*/
-    
-    
-    
-    func session(_ session: ARSession, didFailWithError error: Error) {
-        // Present an error message to the user
-        
-    }
-    
-    func sessionWasInterrupted(_ session: ARSession) {
-        // Inform the user that the session has been interrupted, for example, by presenting an overlay
-        
-    }
-    
-    func sessionInterruptionEnded(_ session: ARSession) {
-        // Reset tracking and/or remove existing anchors if consistent tracking is required
-        
-    }
-}
