@@ -13,8 +13,6 @@ import ARKit
 class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
-    private var planeNode: SCNNode?
-    private var imageNode: SCNNode?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,14 +20,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Set the view's delegate
         sceneView.delegate = self
 
-//        sceneView.debugOptions = [.showFeaturePoints]
-        
-//        let scene = SCNScene(named: "art.scnassets/apple.scn")!
-//
+   //     sceneView.debugOptions = [.showBoundingBoxes, .showWorldOrigin]
+
        sceneView.automaticallyUpdatesLighting = true
-//
-//        sceneView.scene = scene
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,22 +31,16 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
         
-//        configuration.planeDetection = .horizontal
-        
         //Busqueda del directorio con los marcadores a detectar
         guard let markers = ARReferenceImage.referenceImages(inGroupNamed: "Markers", bundle: nil)
             else {
                 fatalError("No se encuentra un directorio de marcadores asociado")
         }
-
-        
         // Se define donde estan guardados los marcadores
         configuration.detectionImages = markers
-        
-                
+
         // Run the view's session
-        sceneView.session.run(configuration)
-    
+        sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -64,64 +51,57 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        // Si el ancla que se crea es una imagen, significa que se reconocio uno de los marcadores
-//       guard let imageAnchor = anchor as? ARImageAnchor else {return}
-//        let planeScene = SCNScene(named: "art.scnassets/apple.scn")
-//        let planeNode = planeScene?.rootNode.childNodes.first
-//
-//        let (min,max) = (planeNode?.boundingBox)!
-//        let size = SCNVector3Make(max.x - min.x, max.y - min.y, max.z - min.z)
-//
-//        let widthRatio = Float(imageAnchor.referenceImage.physicalSize.width)/size.x
-//        let heightRatio = Float(imageAnchor.referenceImage.physicalSize.height)/size.z
-//
-//        let finalRatio = [widthRatio,heightRatio].min()!
-//
-//        planeNode?.transform = SCNMatrix4(imageAnchor.transform)
-//
-//        let appeareanceAction = SCNAction.scale(to: CGFloat(finalRatio), duration: 0.4)
-//        appeareanceAction.timingMode = .easeOut
-//
-//        planeNode?.scale = SCNVector3Make(0, 0, 0)
-//
-//        sceneView.scene.rootNode.addChildNode(planeNode!)
-//
-//        planeNode?.runAction(appeareanceAction)
-//
-//        self.planeNode = planeNode
-//        self.imageNode = node
-
         if anchor is ARImageAnchor {
-            let imageAnchor = anchor as! ARImageAnchor
-            
-            let plane = SCNPlane(width: imageAnchor.referenceImage.physicalSize.width, height: imageAnchor.referenceImage.physicalSize.height)
-            
-            let planeNode = SCNNode()
-            
-            planeNode.position = SCNVector3(x:0, y: 0, z: -10)
-            
-            planeNode.transform = SCNMatrix4MakeRotation(-.pi/2, 1, 0, 0)
-            
-            let material = SCNMaterial()
-            material.diffuse.contents = UIColor.red
-            
-            plane.materials = [material]
-            
-            planeNode.geometry = plane
-            
-            node.addChildNode(planeNode)
-            
-            let appleScene = SCNScene(named: "art.scnassets/apple.scn")
-            
-            if let appleNode = appleScene?.rootNode.childNode(withName: "apple", recursively: true){
-                print("applenode")
-                // appleNode.position = SCNVector3(x:planeNode.position.x, y: planeNode.position.y+0.1, z:planeNode.position.z+0.1)
+            if let imageAnchor = anchor as? ARImageAnchor{
+                //Crear un plano en base al ImageAnchor
+                let plane = SCNPlane(width: imageAnchor.referenceImage.physicalSize.width, height: imageAnchor.referenceImage.physicalSize.height)
+                //Se le asigna un color para la visualización del plano
+                plane.firstMaterial?.diffuse.contents = UIColor(white: 1, alpha: 0.5)
+                //Se le asigna la geometria de plano
+                let planeNode = SCNNode(geometry: plane)
                 
-                //appleNode.scale = SCNVector3(x: 0.05, y: 0.05, z: 0.05)
-                sceneView.scene.rootNode.addChildNode(appleNode)
+                //posición del plano
+                planeNode.position = SCNVector3(x:0, y: 0, z: 0)
+                
+                planeNode.transform = SCNMatrix4MakeRotation(-.pi/2, 1, 0, 0)
+                print("----Plane Node ----")
+                print(planeNode.debugDescription)
+                
+                node.addChildNode(planeNode)
+                
+                let nombreMarker = imageAnchor.referenceImage.name
+                
+                switch (nombreMarker) {
+                    
+                case "stark":
+                    let markerScene = SCNScene(named: "art.scnassets/apple.scn")
+                    if let markerNode = markerScene?.rootNode.childNodes.first{
+                        
+                        markerNode.position = SCNVector3(x: planeNode.position.x, y: planeNode.position.y + 0.3, z: planeNode.position.z)
+                        
+                        markerNode.transform = SCNMatrix4MakeTranslation(markerNode.boundingBox.max.x, markerNode.boundingBox.max.y, markerNode.boundingBox.max.z)
+                        markerNode.eulerAngles.x = -.pi
+                        //let box = SCNBox(width: CGFloat(markerNode.boundingBox.max.x), height: CGFloat(markerNode.boundingBox.max.y), length: CGFloat(markerNode.boundingBox.max.z), chamferRadius: 0)
+//
+//                        let nodebox = SCNNode(geometry: box)
+//                         planeNode.addChildNode(nodebox)
+                        
+                        print("-----MarkerNode----")
+                        print(markerNode.debugDescription)
+                        
+                      
+                        planeNode.addChildNode(markerNode)
+                    }
+                case "rice":
+                    let markerScene = SCNScene(named: "art.scnassets/Raw_meat.scn")
+                    if let markerNode = markerScene?.rootNode.childNode(withName: "Raw_meat", recursively: true){
+                        sceneView.scene.rootNode.addChildNode(markerNode)
+                    }
+                default:
+                    print("No existe referencia")
+                }
             }
-            
         }
-        
     }
 }
+
