@@ -5,10 +5,16 @@
   },
   "resources" : [
     {
-      "filename" : "rice.arreferenceimage"
+      "filename" : "apple.arreferenceimage"
     },
     {
-      "filename" : "stark.arreferenceimage"
+      "filename" : "meat.arreferenceimage"
+    },
+    {
+      "filename" : "mewtwo.arreferenceimage"
+    },
+    {
+      "filename" : "rice.arreferenceimage"
     }
   ]
 }
