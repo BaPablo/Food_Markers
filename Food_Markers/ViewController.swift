@@ -51,23 +51,23 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.session.pause()
     }
     
-    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) ->SCNNode? {
         if anchor is ARImageAnchor {
+
+            let node = SCNNode()
+
             if let imageAnchor = anchor as? ARImageAnchor{
                 //Crear un plano en base al ImageAnchor
                 let plane = SCNPlane(width: imageAnchor.referenceImage.physicalSize.width, height: imageAnchor.referenceImage.physicalSize.height)
+                
                 //Se le asigna un color para la visualización del plano
                 plane.firstMaterial?.diffuse.contents = UIColor(white: 1, alpha: 0.5)
+                
                 //Se le asigna la geometria de plano
                 let planeNode = SCNNode(geometry: plane)
-                
-                //posición del plano respecto a la imagen de referencia (marcador)
-                planeNode.position = SCNVector3(x:0, y: 0, z: 0)
-                
-                planeNode.transform = SCNMatrix4MakeRotation(.pi/2, 1, 0, 0)
-                
-                node.addChildNode(planeNode)
-                
+
+            //  planeNode.transform = SCNMatrix4MakeRotation(.pi/2, 1, 0, 0)
+            // node.addChildNode(planeNode)
                 
                 let nombreMarker = imageAnchor.referenceImage.name
                 
@@ -75,30 +75,19 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                 switch (nombreMarker) {
             
                 case "apple":
-                    let markerScene = SCNScene(named: "art.scnassets/apple/apple.scn")
-//                    if let markerNode = markerScene?.rootNode.childNodes.first{
-                    
-                    if let markerNode = markerScene?.rootNode.childNode(withName: "apple", recursively: true){
-                           
+                    let appleScene = SCNScene(named: "art.scnassets/apple/apple.scn")                    
+                    if let appleNode = appleScene?.rootNode.childNode(withName: "apple", recursively: true){
+
+                        appleNode.position = SCNVector3Zero 
                         markerNode.opacity = 0
                         markerNode.runAction(.fadeIn(duration: 1.3))
-                      
                         planeNode.addChildNode(markerNode)
-                        
-                       // sceneView.scene.rootNode.addChildNode(markerNode)
+                        node.addChildNode(planeNode)
+                        return node
                     }
                     
                 case "cofee":
                     let markerScene = SCNScene(named: "art.scnassets/coffee/coffee.scn")
-                    if let markerNode = markerScene?.rootNode.childNodes.first{
-                        markerNode.position = SCNVector3(x: planeNode.position.x, y: planeNode.position.y + 0.3, z: planeNode.position.z)
-                        
-                        markerNode.transform = SCNMatrix4MakeTranslation(markerNode.boundingBox.max.x, markerNode.boundingBox.max.y, markerNode.boundingBox.max.z)
-                        markerNode.eulerAngles.x = -.pi
-                        
-                        markerNode.runAction(.fadeOut(duration: 1))
-                        
-                        planeNode.addChildNode(markerNode)
                     }
                     
                 case "meat":
@@ -115,20 +104,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                             planeNode.addChildNode(markerNode)
                     }
                     
-//                case "rice":
-//                    let markerScene = SCNScene(named: "art.scnassets/rice/rice.scn")
-//                    if let markerNode = markerScene?.rootNode.childNodes.first{
-//                        markerNode.position = SCNVector3(x: planeNode.position.x, y: planeNode.position.y + 0.3, z: planeNode.position.z)
-//                        
-//                        markerNode.transform = SCNMatrix4MakeTranslation(markerNode.boundingBox.max.x, markerNode.boundingBox.max.y, markerNode.boundingBox.max.z)
-//                        markerNode.eulerAngles.x = -.pi
-//                        
-//                      //  let action = SCNAction()
-//                        
-//                        markerNode.runAction(.fadeOut(duration: 1))
-//                        
-//                        planeNode.addChildNode(markerNode)
-//                    }
+               case "rice":
+                    let markerScene = SCNScene(named: "art.scnassets/rice/rice.scn")
+                }
                     
                     
                 case "mewtwo":
@@ -139,6 +117,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 //                        markerNode.runAction(.fadeIn(duration: 1.3))
 //                        markerNode.eulerAngles.x = -.pi/2
                         
+                        //Animacion para la aparicion
+
                         let (min,max) = planeNode.boundingBox
                         let size = SCNVector3Make(max.x - min.x, max.y - min.y, max.z - min.z)
                         
