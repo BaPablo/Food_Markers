@@ -20,7 +20,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Set the view's delegate
         sceneView.delegate = self
 
-       sceneView.debugOptions = [.showBoundingBoxes]
+      //sceneView.debugOptions = [.showBoundingBoxes]
 
        sceneView.automaticallyUpdatesLighting = true
         
@@ -28,20 +28,19 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        // Create a session configuration
-        let configuration = ARWorldTrackingConfiguration()
-        
+
         //Busqueda del directorio con los marcadores a detectar
         guard let markers = ARReferenceImage.referenceImages(inGroupNamed: "Markers", bundle: nil)
             else {
                 fatalError("No se encuentra un directorio de marcadores asociado")
         }
-        // Se define donde estan guardados los marcadores
-        configuration.detectionImages = markers
-
-        // Run the view's session
-        sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+        // Create a session configuration
+        
+            let configuration = ARWorldTrackingConfiguration()
+            configuration.detectionImages = markers
+            // Run the view's session
+            sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -51,72 +50,60 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.session.pause()
     }
     
-    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) ->SCNNode? {
+    //MARK: -ARSCNViewDelegate
+    
+
+    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode?{
+
+        let node = SCNNode()
         if anchor is ARImageAnchor {
 
-            let node = SCNNode()
-
             if let imageAnchor = anchor as? ARImageAnchor{
+                
                 //Crear un plano en base al ImageAnchor
-                let plane = SCNPlane(width: imageAnchor.referenceImage.physicalSize.width, height: imageAnchor.referenceImage.physicalSize.height)
+                let plane = SCNPlane(width: imageAnchor.referenceImage.physicalSize.width,
+                                     height: imageAnchor.referenceImage.physicalSize.height)
                 
                 //Se le asigna un color para la visualización del plano
-                plane.firstMaterial?.diffuse.contents = UIColor(white: 1, alpha: 0.5)
+                plane.firstMaterial?.diffuse.contents = UIColor(white: 1, alpha: 0)
                 
                 //Se le asigna la geometria de plano
                 let planeNode = SCNNode(geometry: plane)
 
-            //  planeNode.transform = SCNMatrix4MakeRotation(.pi/2, 1, 0, 0)
-            // node.addChildNode(planeNode)
+                planeNode.eulerAngles.x = -.pi/2
                 
+                node.addChildNode(planeNode)
                 let nombreMarker = imageAnchor.referenceImage.name
                 
                 //Casos para cada marcador, dado que cada modelo tiene distintas orientaciones y posiciones
                 switch (nombreMarker) {
             
                 case "apple":
-                    let appleScene = SCNScene(named: "art.scnassets/apple/apple.scn")                    
-                    if let appleNode = appleScene?.rootNode.childNode(withName: "apple", recursively: true){
-
-                        appleNode.position = SCNVector3Zero 
-                        markerNode.opacity = 0
-                        markerNode.runAction(.fadeIn(duration: 1.3))
-                        planeNode.addChildNode(markerNode)
-                        node.addChildNode(planeNode)
-                        return node
+                    print ("Apple marker detected")
+                    let appleScene = SCNScene(named: "art.scnassets/apple/apple.scn")
+                    if let appleNode = appleScene?.rootNode.childNodes.first{
+                        appleNode.eulerAngles.x = .pi / 2
+                        appleNode.position = SCNVector3(x:0, y:0, z:0)
+                        node.addChildNode(appleNode)
+                        
                     }
-                    
-                case "cofee":
-                    let markerScene = SCNScene(named: "art.scnassets/coffee/coffee.scn")
-                    }
-                    
+                
                 case "meat":
                         let markerScene = SCNScene(named: "art.scnassets/meat/meat.scn")
                         if let markerNode = markerScene?.rootNode.childNodes.first{
-                           // markerNode.position = SCNVector3(x: planeNode.position.x, y: planeNode.position.y + 0.3, z: planeNode.position.z)
-                            
-                          //  markerNode.transform = SCNMatrix4MakeTranslation(markerNode.boundingBox.max.x, markerNode.boundingBox.max.y, markerNode.boundingBox.max.z)
                             markerNode.eulerAngles.x = -.pi
-                            
-                           // let action = SCNAction()
                             markerNode.opacity = 0
                             markerNode.runAction(.fadeIn(duration: 1.3))
-                            planeNode.addChildNode(markerNode)
                     }
                     
                case "rice":
                     let markerScene = SCNScene(named: "art.scnassets/rice/rice.scn")
-                }
-                    
+                
                     
                 case "mewtwo":
                     let markerScene = SCNScene(named: "art.scnassets/" + (nombreMarker)! + "/" + nombreMarker! + ".scn")
-                    print("A wild Mewtwo has appeared")
+                    print("Mewtwo marker detected")
                     if let markerNode = markerScene?.rootNode.childNode(withName: nombreMarker!, recursively: true){
-//                        markerNode.opacity = 0
-//                        markerNode.runAction(.fadeIn(duration: 1.3))
-//                        markerNode.eulerAngles.x = -.pi/2
-                        
                         //Animacion para la aparicion
 
                         let (min,max) = planeNode.boundingBox
@@ -129,27 +116,23 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                         
                         planeNode.transform = SCNMatrix4(imageAnchor.transform)
                         
-                        print (planeNode.debugDescription)
+                        
                         planeNode.rotation = SCNVector4Make(0, 0, 0, 0)
                         
-                        print (planeNode.debugDescription)
-                        
-                        let aparicion = SCNAction.scale(to: CGFloat(finalRatio), duration: 4)
-                        
+                        let aparicion = SCNAction.scale(to: CGFloat(finalRatio), duration: 0.8)
                         aparicion.timingMode = .easeOut
                         
                         planeNode.scale = SCNVector3Make(0, 0, 0)
 
                         planeNode.runAction(aparicion)
-                        
-                      //sceneView.scene.rootNode.addChildNode(markerNode)
                       planeNode.addChildNode(markerNode)
                     }
                 default:
                     print("No existe referencia")
                 }
             }
+            
         }
+        return node
     }
 }
-
