@@ -21,7 +21,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Set the view's delegate
         sceneView.delegate = self
 
-      sceneView.debugOptions = [.showBoundingBoxes, .showWorldOrigin]
+      sceneView.debugOptions = [.showWorldOrigin]
 
        sceneView.automaticallyUpdatesLighting = true
         
@@ -66,16 +66,14 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                                          height: imageAnchor.referenceImage.physicalSize.height)
                     
                     //Se le asigna un color para la visualización del plano
-                    plane.firstMaterial?.diffuse.contents = UIColor(white: 1, alpha: 0)
+                    plane.firstMaterial?.diffuse.contents = UIColor(white: 1, alpha:  0.5)
                     
                     //Se le asigna la geometria de plano
                     let planeNode = SCNNode(geometry: plane)
 
                     planeNode.eulerAngles.x = -.pi/2
                 
-                    //sceneView.scene.rootNode.childNode.removeFromParentNode()
-                
-                  //  node.addChildNode(planeNode)
+                   // node.addChildNode(planeNode)
                     let nombreMarker = imageAnchor.referenceImage.name
                     
                     //Casos para cada marcador, dado que cada modelo tiene distintas orientaciones y posiciones
@@ -86,14 +84,16 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                         let appleScene = SCNScene(named: "art.scnassets/apple/apple.scn")
                         if let appleNode = appleScene?.rootNode.childNodes.first{
                             appleNode.eulerAngles.x = .pi / 2
-                            appleNode.position = SCNVector3(x:0, y:0.1, z:-0.3)
+                            // appleNode.position = SCNVector3(x:0, y:0.1, z:-0.3)
 //                            appleNode.position = SCNVector3(x:Float(imageAnchor.referenceImage.physicalSize.width),
 //                                                            y:0,
 //                                                            z:Float(imageAnchor.referenceImage.physicalSize.height))
                             //node.addChildNode(appleNode)
-                            print(appleNode.position)
-                            planeNode.addChildNode(appleNode)
-                            sceneView.scene.rootNode.addChildNode(planeNode)
+                            print(appleNode.debugDescription)
+                            node.addChildNode(appleNode)
+                            print(appleNode.debugDescription)
+                            sceneView.session.setWorldOrigin(relativeTransform: imageAnchor.transform )
+                            sceneView.scene.rootNode.addChildNode(appleNode)
                         
                         }
                     
@@ -112,8 +112,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                             appleNode.eulerAngles.x = .pi / 2
                             
                             appleNode.position = SCNVector3(x:0, y:0.1, z:0)
-                            planeNode.addChildNode(appleNode)
-                            node.addChildNode(planeNode)
+                            //planeNode.addChildNode(appleNode)
+                            node.addChildNode(appleNode)
                         }
                         
                     case "mewtwo":
