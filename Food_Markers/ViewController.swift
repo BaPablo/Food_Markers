@@ -75,6 +75,18 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                 
                    // node.addChildNode(planeNode)
                     let nombreMarker = imageAnchor.referenceImage.name
+                
+                
+                    var previousImageAnchorTransform = simd_float4x4(float4(0,0,0,0),
+                                                                 float4(0,0,0,0),
+                                                                 float4(0,0,0,0),
+                                                                 float4(0,0,0,0))
+                
+                // Si el ancla cambia su transformación, se actualiza el valor anterior y se setea el nuevo sistema de coordenadas
+                if previousImageAnchorTransform != imageAnchor.transform {
+                    previousImageAnchorTransform = imageAnchor.transform
+                    self.sceneView.session.setWorldOrigin(relativeTransform: previousImageAnchorTransform)
+                }
                     
                     //Casos para cada marcador, dado que cada modelo tiene distintas orientaciones y posiciones
                     switch (nombreMarker) {
@@ -84,18 +96,14 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                         let appleScene = SCNScene(named: "art.scnassets/apple/apple.scn")
                         if let appleNode = appleScene?.rootNode.childNodes.first{
                             appleNode.eulerAngles.x = .pi / 2
-                            // appleNode.position = SCNVector3(x:0, y:0.1, z:-0.3)
-//                            appleNode.position = SCNVector3(x:Float(imageAnchor.referenceImage.physicalSize.width),
-//                                                            y:0,
-//                                                            z:Float(imageAnchor.referenceImage.physicalSize.height))
-                            //node.addChildNode(appleNode)
-                            print(appleNode.debugDescription)
+                            appleNode.position = SCNVector3(x:0, y:0.1, z:0)
                             node.addChildNode(appleNode)
-                            print(appleNode.debugDescription)
-                            sceneView.session.setWorldOrigin(relativeTransform: imageAnchor.transform )
-                            sceneView.scene.rootNode.addChildNode(appleNode)
-                        
+                            print(imageAnchor.transform)
+                            
+
+                            self.sceneView.scene.rootNode.addChildNode(appleNode)
                         }
+                        sceneView.session.remove(anchor: imageAnchor)
                     
                     case "meat":
                         let markerScene = SCNScene(named: "art.scnassets/meat/meat.scn")
