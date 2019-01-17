@@ -14,12 +14,28 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet weak var sizeMenu: UIButton!
+    @IBOutlet weak var segControl: UISegmentedControl!
+   
+    @IBAction func setModelSize(sender: UISegmentedControl) {
+        switch segControl.selectedSegmentIndex {
+            case 0:
+                print("0")
+            case 1:
+                print("1")
+            case 2:
+                print("2")
+            default:
+                print("How are we even here")
+        }
+        
+    }
+    
     
     override func viewDidLoad() {
         // Set the view's delegate
         sceneView.delegate = self
 
-        sceneView.debugOptions = [.showWorldOrigin]
+        //sceneView.debugOptions = [.showWorldOrigin]
 
        sceneView.automaticallyUpdatesLighting = true
         
