@@ -13,15 +13,13 @@ import ARKit
 class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
-    var imgAnchors: [ARImageAnchor] = []
+    @IBOutlet weak var sizeMenu: UIButton!
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
         // Set the view's delegate
         sceneView.delegate = self
 
-      sceneView.debugOptions = [.showWorldOrigin]
+        sceneView.debugOptions = [.showWorldOrigin]
 
        sceneView.automaticallyUpdatesLighting = true
         
@@ -35,13 +33,18 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             else {
                 fatalError("No se encuentra un directorio de marcadores asociado")
         }
-        // Create a session configuration
         
-            let configuration = ARWorldTrackingConfiguration()
-            configuration.detectionImages = markers
+        // Create a session configuration
+        if #available(iOS 12.0, *) {
+            let configuration = ARImageTrackingConfiguration()
+            configuration.trackingImages = markers
             // Run the view's session
             sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
-        
+        } else {
+            let configuration = ARWorldTrackingConfiguration()
+            configuration.detectionImages = markers
+            sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -66,44 +69,28 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                                          height: imageAnchor.referenceImage.physicalSize.height)
                     
                     //Se le asigna un color para la visualización del plano
-                    plane.firstMaterial?.diffuse.contents = UIColor(white: 1, alpha:  0.5)
+                    plane.firstMaterial?.diffuse.contents = UIColor(white: 1, alpha: 0)
                     
                     //Se le asigna la geometria de plano
                     let planeNode = SCNNode(geometry: plane)
 
                     planeNode.eulerAngles.x = -.pi/2
-                
-                   // node.addChildNode(planeNode)
+                    node.addChildNode(planeNode)
                     let nombreMarker = imageAnchor.referenceImage.name
                 
-                
-                    var previousImageAnchorTransform = simd_float4x4(float4(0,0,0,0),
-                                                                 float4(0,0,0,0),
-                                                                 float4(0,0,0,0),
-                                                                 float4(0,0,0,0))
-                
-                // Si el ancla cambia su transformación, se actualiza el valor anterior y se setea el nuevo sistema de coordenadas
-                if previousImageAnchorTransform != imageAnchor.transform {
-                    previousImageAnchorTransform = imageAnchor.transform
-                    self.sceneView.session.setWorldOrigin(relativeTransform: previousImageAnchorTransform)
-                }
-                    
                     //Casos para cada marcador, dado que cada modelo tiene distintas orientaciones y posiciones
                     switch (nombreMarker) {
-                
                     case "apple":
                         print ("Apple marker detected")
                         let appleScene = SCNScene(named: "art.scnassets/apple/apple.scn")
                         if let appleNode = appleScene?.rootNode.childNodes.first{
                             appleNode.eulerAngles.x = .pi / 2
-                            appleNode.position = SCNVector3(x:0, y:0.1, z:0)
                             node.addChildNode(appleNode)
-                            print(imageAnchor.transform)
-                            
-
-                            self.sceneView.scene.rootNode.addChildNode(appleNode)
+                            // Si no se le asigna una
+                            appleNode.position = SCNVector3(0,0.2 ,0.01)
+                            self.sceneView.scene.rootNode.addChildNode(node)
                         }
-                        sceneView.session.remove(anchor: imageAnchor)
+                        
                     
                     case "meat":
                         let markerScene = SCNScene(named: "art.scnassets/meat/meat.scn")
@@ -157,7 +144,14 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                         print("No existe referencia")
                     }
                 }
+            
         }
-        return node
+    return node
+    }
+    
+    func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {
+        guard let _ = anchor as? ARImageAnchor else {return}
+        node.enumerateChildNodes { (node, _) in node.removeFromParentNode()
+        }
     }
 }
