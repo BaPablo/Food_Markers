@@ -93,8 +93,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                     planeNode.eulerAngles.x = -.pi/2
                     node.addChildNode(planeNode)
                     let nombreMarker = imageAnchor.referenceImage.name
-                
-                    //Casos para cada marcador, dado que cada modelo tiene distintas orientaciones y posiciones
+
                     switch (nombreMarker) {
                     case "apple":
                         print ("Apple marker detected")
@@ -106,7 +105,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                             appleNode.position = SCNVector3(0,0.2 ,0.01)
                             self.sceneView.scene.rootNode.addChildNode(node)
                         }
-                        
                     
                     case "meat":
                         let markerScene = SCNScene(named: "art.scnassets/meat/meat.scn")
@@ -120,8 +118,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                         print ("Rice marker detected")
                         let appleScene = SCNScene(named: "art.scnassets/apple/apple.scn")
                         if let appleNode = appleScene?.rootNode.childNodes.first{
-                            appleNode.eulerAngles.x = .pi / 2
-                            
+                            appleNode.eulerAngles.x = .pi / 2   
                             appleNode.position = SCNVector3(x:0, y:0.1, z:0)
                             //planeNode.addChildNode(appleNode)
                             node.addChildNode(appleNode)
@@ -142,15 +139,12 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                             let finalRatio = [widthRatio,heightRatio].min()!
                             
                             planeNode.transform = SCNMatrix4(imageAnchor.transform)
-                            
-                            
                             planeNode.rotation = SCNVector4Make(0, 0, 0, 0)
                             
                             let aparicion = SCNAction.scale(to: CGFloat(finalRatio), duration: 0.8)
                             aparicion.timingMode = .easeOut
                             
                             planeNode.scale = SCNVector3Make(0, 0, 0)
-
                             planeNode.runAction(aparicion)
                             planeNode.addChildNode(markerNode)
                             sceneView.scene.rootNode.addChildNode(markerNode)
@@ -160,14 +154,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                         print("No existe referencia")
                     }
                 }
-            
         }
     return node
-    }
-    
-    func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {
-        guard let _ = anchor as? ARImageAnchor else {return}
-        node.enumerateChildNodes { (node, _) in node.removeFromParentNode()
-        }
     }
 }
