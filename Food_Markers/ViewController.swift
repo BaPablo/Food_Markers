@@ -15,7 +15,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet var sizeOptionsBtn: UIButton!
     @IBOutlet var sizeOptionsSegments: UISegmentedControl!
-    var nodesOriginalScales = ["apple":SCNVector3(),"mewtwo":SCNVector3()]
+    let nodesOriginalScales = ["apple":SCNVector3(),"mewtwo":SCNVector3()]
     
     @IBAction func sizeSelection(_ sender: UISegmentedControl) {
         var actualNode = SCNNode()
@@ -102,7 +102,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                         if let appleNode = appleScene?.rootNode.childNodes.first{
                             appleNode.eulerAngles.x = .pi / 2
                             appleNode.name = nombreMarker
-                            nodesOriginalScales["apple"] = appleNode.scale
+                            nodesOriginalScales[nombreMarker!] = appleNode.scale
                             appleNode.position = SCNVector3(0, 0.1, 0)
                             node.addChildNode(appleNode)
                         }
@@ -138,8 +138,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                     }
                 }
         }
-        
-        node.name = "fromAnchor"
+    node.name = "fromAnchor"
     return node
     }
     
