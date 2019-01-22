@@ -21,11 +21,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="1112" height="834"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yI4-3K-9WQ">
+                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yI4-3K-9WQ">
                                 <rect key="frame" x="0.0" y="0.0" width="1112" height="834"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </arscnView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" highlighted="YES" selected="YES" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fEx-8n-qkp">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fEx-8n-qkp">
                                 <rect key="frame" x="1022" y="734" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="18"/>
@@ -36,9 +35,8 @@
                                     </segue>
                                 </connections>
                             </button>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="AoM-6f-y9x">
-                                <rect key="frame" x="787" y="701" width="195" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="AoM-6f-y9x">
+                                <rect key="frame" x="896" y="696" width="176" height="29"/>
                                 <segments>
                                     <segment title="Small"/>
                                     <segment title="Normal"/>
@@ -50,6 +48,14 @@
                             </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="AoM-6f-y9x" secondAttribute="trailing" constant="40" id="28I-Kd-7eX"/>
+                            <constraint firstAttribute="bottom" secondItem="yI4-3K-9WQ" secondAttribute="bottom" id="47Y-bh-ib7"/>
+                            <constraint firstItem="yI4-3K-9WQ" firstAttribute="leading" secondItem="WEQ-wl-UKH" secondAttribute="leading" id="6VM-dn-gtk"/>
+                            <constraint firstAttribute="trailing" secondItem="yI4-3K-9WQ" secondAttribute="trailing" id="aKB-ZI-XGf"/>
+                            <constraint firstItem="EJv-KQ-bzW" firstAttribute="top" secondItem="AoM-6f-y9x" secondAttribute="bottom" constant="60" id="vod-f1-GiB"/>
+                            <constraint firstItem="yI4-3K-9WQ" firstAttribute="top" secondItem="WEQ-wl-UKH" secondAttribute="top" id="zDX-4c-5tV"/>
+                        </constraints>
                     </view>
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
@@ -66,8 +72,6 @@
         <!--sizeController-->
         <scene sceneID="S5j-NB-3vA">
             <objects>
-                <exit id="xbb-X9-v8C" userLabel="Exit" sceneMemberID="exit"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="PqC-nV-wqD" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController title="sizeController" extendedLayoutIncludesOpaqueBars="YES" hidesBottomBarWhenPushed="YES" id="cfO-WN-X2v" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="MpC-n0-9pT"/>
@@ -105,6 +109,8 @@
                     <value key="contentSizeForViewInPopover" type="size" width="516" height="180"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
+                <exit id="xbb-X9-v8C" userLabel="Exit" sceneMemberID="exit"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PqC-nV-wqD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="735.97122302158277" y="120.86330935251799"/>
         </scene>

@@ -14,39 +14,40 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet var sizeOptionsBtn: UIButton!
-    
     @IBOutlet var sizeOptionsSegments: UISegmentedControl!
+    var nodesOriginalScales = ["apple":SCNVector3(),"mewtwo":SCNVector3()]
     
     @IBAction func sizeSelection(_ sender: UISegmentedControl) {
-        print(sender.selectedSegmentIndex)
         var actualNode = SCNNode()
-        print("Cantidad de nodos:", sceneView.scene.rootNode.childNodes.count)
-        for node in sceneView.scene.rootNode.childNodes {
-            print ("Debug description: ", node.debugDescription)
-            print ("Node name: ", node.name)
-            print ("Node hidden: ", node.isHidden)
-            
-            if node.name == "fromAnchor" && !node.isHidden{
-                actualNode = (node.childNodes.first)!
-            }
-        }
+        actualNode = buscarNodoActual()
         switch sizeOptionsSegments.selectedSegmentIndex{
             case 0:
-                actualNode.scale = SCNVector3(0.001, 0.001, 0.001)
+                actualNode.scale = SCNVector3(nodesOriginalScales[actualNode.name!]!.x * 0.5,
+                                    nodesOriginalScales[actualNode.name!]!.y * 0.5,
+                                    nodesOriginalScales[actualNode.name!]!.z * 0.5)
                 sceneView.scene.rootNode.childNodes.last?.replaceChildNode(
-                sceneView.scene.rootNode.childNodes.last!, with: actualNode)
+                    sceneView.scene.rootNode.childNodes.last!, with: actualNode)
             case 1:
-                print(sender.selectedSegmentIndex)
-                actualNode.scale = SCNVector3(0.005, 0.005, 0.005)
+                actualNode.scale = nodesOriginalScales[actualNode.name!]!
                 sceneView.scene.rootNode.childNodes.last?.replaceChildNode(
                     sceneView.scene.rootNode.childNodes.last!, with: actualNode)
             case 2:
-                actualNode.scale = SCNVector3(0.01, 0.01, 0.01)
+                actualNode.scale = SCNVector3(actualNode.scale.x * 1.4, actualNode.scale.y * 1.4, actualNode.scale.z * 1.4)
                 sceneView.scene.rootNode.childNodes.last?.replaceChildNode(
                     sceneView.scene.rootNode.childNodes.last!, with: actualNode)
             default:
                 print("mMM")
         }
+    }
+    
+    func buscarNodoActual() -> SCNNode {
+        var actualNode = SCNNode()
+        for node in sceneView.scene.rootNode.childNodes {
+            if node.name == "fromAnchor" && !node.isHidden{
+                actualNode = (node.childNodes.first)!
+            }
+        }
+        return actualNode
     }
     
     override func viewDidLoad() {
@@ -101,6 +102,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                         if let appleNode = appleScene?.rootNode.childNodes.first{
                             appleNode.eulerAngles.x = .pi / 2
                             appleNode.name = nombreMarker
+                            nodesOriginalScales["apple"] = appleNode.scale
                             appleNode.position = SCNVector3(0, 0.1, 0)
                             node.addChildNode(appleNode)
                         }
@@ -128,15 +130,17 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                         if let markerNode = markerScene?.rootNode.childNode(withName: nombreMarker!, recursively: true){
                             markerNode.position = SCNVector3(x: 0, y: 0.01, z: 0)
                             markerNode.name = nombreMarker
+                            nodesOriginalScales[nombreMarker!] = markerNode.scale
                             node.addChildNode(markerNode)
-                            sceneView.scene.rootNode.addChildNode(node)
                         }
                     default:
                         print("No existe referencia")
                     }
                 }
         }
+        
         node.name = "fromAnchor"
     return node
     }
+    
 }
