@@ -15,7 +15,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet var sizeOptionsBtn: UIButton!
     @IBOutlet var sizeOptionsSegments: UISegmentedControl!
-    let nodesOriginalScales = ["apple":SCNVector3(),"mewtwo":SCNVector3()]
+    var nodesOriginalScales = ["apple":SCNVector3(),"mewtwo":SCNVector3()]
     
     @IBAction func sizeSelection(_ sender: UISegmentedControl) {
         var actualNode = SCNNode()
