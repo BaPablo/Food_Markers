@@ -196,13 +196,16 @@
 				TargetAttributes = {
 					F490697C21DE5ED100C4875B = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1010;
 					};
 					F490699221DE5ED100C4875B = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1010;
 						TestTargetID = F490697C21DE5ED100C4875B;
 					};
 					F490699D21DE5ED100C4875B = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1010;
 						TestTargetID = F490697C21DE5ED100C4875B;
 					};
 				};
@@ -445,7 +448,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "UFRO.Food-Markers";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -465,7 +468,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "UFRO.Food-Markers";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -484,7 +487,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "UFRO.Food-MarkersTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Food_Markers.app/Food_Markers";
 			};
@@ -504,7 +507,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "UFRO.Food-MarkersTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Food_Markers.app/Food_Markers";
 			};
@@ -523,7 +526,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "UFRO.Food-MarkersUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Food_Markers;
 			};
@@ -542,7 +545,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "UFRO.Food-MarkersUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Food_Markers;
 			};

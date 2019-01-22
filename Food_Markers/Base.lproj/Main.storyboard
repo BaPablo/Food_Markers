@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
     <device id="ipad10_5" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -14,38 +13,50 @@
         <scene sceneID="tXr-a1-R10">
             <objects>
                 <viewController id="BV1-FR-VrT" customClass="ViewController" customModule="Food_Markers" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cwX-4Q-E94"/>
+                        <viewControllerLayoutGuide type="bottom" id="EJv-KQ-bzW"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="WEQ-wl-UKH">
                         <rect key="frame" x="0.0" y="0.0" width="1112" height="834"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yI4-3K-9WQ">
-                                <rect key="frame" x="0.0" y="-1" width="1112" height="835"/>
+                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yI4-3K-9WQ">
+                                <rect key="frame" x="0.0" y="0.0" width="1112" height="834"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </arscnView>
-                            <button opaque="NO" contentMode="scaleToFill" highlighted="YES" selected="YES" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fEx-8n-qkp">
-                                <rect key="frame" x="1022" y="744" width="50" height="50"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" highlighted="YES" selected="YES" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fEx-8n-qkp">
+                                <rect key="frame" x="1022" y="734" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="18"/>
                                 <state key="normal" image="Iconos AR"/>
                                 <connections>
-                                    <segue destination="C4W-6D-YzP" kind="popoverPresentation" popoverAnchorView="fEx-8n-qkp" id="8aZ-VM-kqx">
+                                    <segue destination="cfO-WN-X2v" kind="popoverPresentation" popoverAnchorView="fEx-8n-qkp" id="kRS-wj-CNy">
                                         <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                     </segue>
                                 </connections>
                             </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="AoM-6f-y9x">
+                                <rect key="frame" x="787" y="701" width="195" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Small"/>
+                                    <segment title="Normal"/>
+                                    <segment title="Large"/>
+                                </segments>
+                                <connections>
+                                    <action selector="sizeSelection:" destination="BV1-FR-VrT" eventType="valueChanged" id="PyX-4x-PEX"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="yI4-3K-9WQ" secondAttribute="trailing" id="49f-os-Njh"/>
-                            <constraint firstItem="yI4-3K-9WQ" firstAttribute="bottom" secondItem="cQh-XF-tmi" secondAttribute="bottom" id="FVJ-Co-Im6"/>
-                            <constraint firstItem="cQh-XF-tmi" firstAttribute="trailing" secondItem="fEx-8n-qkp" secondAttribute="trailing" constant="40" id="PER-6G-PbS"/>
-                            <constraint firstItem="yI4-3K-9WQ" firstAttribute="centerY" secondItem="WEQ-wl-UKH" secondAttribute="centerY" id="piK-FJ-ZOx"/>
-                            <constraint firstItem="cQh-XF-tmi" firstAttribute="bottom" secondItem="fEx-8n-qkp" secondAttribute="bottom" constant="40" id="sll-h1-BRe"/>
-                            <constraint firstItem="yI4-3K-9WQ" firstAttribute="leading" secondItem="WEQ-wl-UKH" secondAttribute="leading" id="xIn-gD-1Pk"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="cQh-XF-tmi"/>
                     </view>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="sceneView" destination="yI4-3K-9WQ" id="eNq-Fc-xNU"/>
-                        <outlet property="sizeMenu" destination="fEx-8n-qkp" id="tpd-Eu-2tv"/>
+                        <outlet property="sizeOptionsBtn" destination="fEx-8n-qkp" id="bbI-OV-sCn"/>
+                        <outlet property="sizeOptionsSegments" destination="AoM-6f-y9x" id="yod-gl-C4Q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
@@ -53,43 +64,49 @@
             <point key="canvasLocation" x="-3.2374100719424463" y="125.17985611510792"/>
         </scene>
         <!--sizeController-->
-        <scene sceneID="iZ8-MF-xsb">
+        <scene sceneID="S5j-NB-3vA">
             <objects>
-                <viewController title="sizeController" id="C4W-6D-YzP" sceneMemberID="viewController">
-                    <view key="view" opaque="NO" clearsContextBeforeDrawing="NO" alpha="0.0" contentMode="scaleToFill" id="8M9-IM-nNM">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+                <exit id="xbb-X9-v8C" userLabel="Exit" sceneMemberID="exit"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PqC-nV-wqD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController title="sizeController" extendedLayoutIncludesOpaqueBars="YES" hidesBottomBarWhenPushed="YES" id="cfO-WN-X2v" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="MpC-n0-9pT"/>
+                        <viewControllerLayoutGuide type="bottom" id="G0x-KE-xCt"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hsZ-8D-M9z">
+                        <rect key="frame" x="0.0" y="0.0" width="516" height="180"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="bzT-8G-LLX">
-                                <rect key="frame" x="51" y="52" width="206" height="29"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="jw3-o4-L2R">
+                                <rect key="frame" x="146" y="87" width="225" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <segments>
-                                    <segment title="Pequeño"/>
+                                    <segment title="Small"/>
                                     <segment title="Normal"/>
-                                    <segment title="Grande"/>
+                                    <segment title="Large"/>
                                 </segments>
                                 <connections>
-                                    <action selector="setModelSize:" destination="bR7-MD-KCA" eventType="valueChanged" id="ZeI-ok-5S0"/>
+                                    <action selector="size:forEvent:" destination="xbb-X9-v8C" eventType="valueChanged" id="rfX-pH-Pb7"/>
                                 </connections>
                             </segmentedControl>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tamaño" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="day-Ge-yAE">
-                                <rect key="frame" x="124" y="23" width="61" height="21"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eyu-VB-H9P">
+                                <rect key="frame" x="144" y="33" width="50" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <accessibility key="accessibilityConfiguration" identifier="btnNormal"/>
+                                <state key="normal" title="Normal"/>
+                                <connections>
+                                    <action selector="Normal:" destination="xbb-X9-v8C" eventType="touchUpInside" id="SAV-8U-o5t"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="m3m-jt-yiA"/>
                     </view>
-                    <value key="contentSizeForViewInPopover" type="size" width="320" height="100"/>
+                    <toolbarItems/>
+                    <value key="contentSizeForViewInPopover" type="size" width="516" height="180"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="sRH-s4-qFW" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="bR7-MD-KCA" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="737.05035971223026" y="125.17985611510792"/>
+            <point key="canvasLocation" x="735.97122302158277" y="120.86330935251799"/>
         </scene>
     </scenes>
     <resources>
