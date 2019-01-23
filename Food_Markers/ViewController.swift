@@ -15,8 +15,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet var sizeOptionsBtn: UIButton!
     @IBOutlet var sizeOptionsSegments: UISegmentedControl!
-    var nodesOriginalScales = ["apple":SCNVector3(),"mewtwo":SCNVector3()]
+    var nodesOriginalScales = []
     
+    //En base a la selección del usuario se cambia el tamaño
     @IBAction func sizeSelection(_ sender: UISegmentedControl) {
         var actualNode = SCNNode()
         actualNode = buscarNodoActual()
@@ -39,7 +40,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                 print("mMM")
         }
     }
-    
+    //Busca el nodo actual en base a si es visible y su nombre
     func buscarNodoActual() -> SCNNode {
         var actualNode = SCNNode()
         for node in sceneView.scene.rootNode.childNodes {
@@ -92,19 +93,24 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
         let node = SCNNode()
         if anchor is ARImageAnchor {
-
             if let imageAnchor = anchor as? ARImageAnchor{
                 let nombreMarker = imageAnchor.referenceImage.name
+                //En base al nombre del marcador se muestra la escena y se agrega al nodo correspondiente
                 switch (nombreMarker) {
                     case "apple":
                         print ("Apple marker detected")
-                        let appleScene = SCNScene(named: "art.scnassets/apple/apple.scn")
-                        if let appleNode = appleScene?.rootNode.childNodes.first{
-                            appleNode.eulerAngles.x = .pi / 2
-                            appleNode.name = nombreMarker
-                            nodesOriginalScales[nombreMarker!] = appleNode.scale
-                            appleNode.position = SCNVector3(0, 0.1, 0)
-                            node.addChildNode(appleNode)
+                        let markerScene = SCNScene(named: "art.scnassets/apple/apple.scn")
+                        if let markerNode  = markerScene?.rootNode.childNodes.first{
+                            markerNode.eulerAngles.x = .pi / 2
+                            //Se le asigna un nombre al nodo con la escena
+                            markerNode.name = nombreMarker
+                            //Se guardan las escalas de tamaño originales del nodo
+                            //nodesOriginalScales[nombreMarker!] = markerNode .scale
+                            nodesOriginalScales[nombreMarker!] = nombreMarker.scale
+                            //Se posiciona por sobre el ancla para evitar bug
+                            markerNode.position = SCNVector3(0, 0.1, 0)
+                            //Se agrega el nodo de la manzana al nodo creado sobre el ancla
+                            node.addChildNode(nodeSce)
                         }
                     case "stark":
                         let markerScene = SCNScene(named: "art.scnassets/meat/meat.scn")
@@ -117,11 +123,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                         
                     case "rice":
                         print ("rice marker detected")
-                        let appleScene = SCNScene(named: "art.scnassets/apple/apple.scn")
-                        if let appleNode = appleScene?.rootNode.childNodes.first{
-                            appleNode.eulerAngles.x = .pi / 2   
-                            appleNode.position = SCNVector3(x:0, y:0.1, z:0)
-                            node.addChildNode(appleNode)
+                        let markerScene = SCNScene(named: "art.scnassets/apple/apple.scn")
+                        if let markerNode  = markerScene?.rootNode.childNodes.first{
+                            markerNode.eulerAngles.x = .pi / 2   
+                            markerNode.position = SCNVector3(x:0, y:0.1, z:0)
+                            node.addChildNode(nodeSce)
                         }
                         
                     case "mewtwo":
@@ -138,6 +144,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                     }
                 }
         }
+    // Se le añade un nombre al nodo para identificar su origen posteriormente   
     node.name = "fromAnchor"
     return node
     }
