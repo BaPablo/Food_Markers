@@ -2,7 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "apple.jpg"
+      "filename" : "appe2.jpg"
     }
   ],
   "info" : {
@@ -10,7 +10,7 @@
     "author" : "xcode"
   },
   "properties" : {
-    "width" : 3.0000335570469798,
+    "width" : 3.0000382488479262,
     "unit" : "centimeters"
   }
 }
