@@ -15,6 +15,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet var sizeOptionsBtn: UIButton!
     @IBOutlet var sizeOptionsSegments: UISegmentedControl!
+    @IBOutlet var noMarkerLabel: UILabel!
     var nodesOriginalScales = [String:SCNVector3]()
     var visibleNodes = [SCNNode()]
     
@@ -22,7 +23,15 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBAction func sizeSelection(_ sender: UISegmentedControl) {
         var actualNode = SCNNode()
         actualNode = buscarNodoActual()
-        
+        guard actualNode.name != nil else {
+            noMarkerLabel.layer.masksToBounds = true
+            noMarkerLabel.layer.cornerRadius = 4
+            noMarkerLabel.isHidden = false
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                self.noMarkerLabel.isHidden = true
+            }
+            return
+        }
             switch sizeOptionsSegments.selectedSegmentIndex{
                 case 0:
                     actualNode.scale = SCNVector3(nodesOriginalScales[actualNode.name!]!.x * 0.5,
@@ -64,7 +73,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     override func viewDidLoad() {
         // Set the view's delegate
         sceneView.delegate = self
-        sceneView.automaticallyUpdatesLighting = true
+        //sceneView.automaticallyUpdatesLighting = true
         sceneView.debugOptions = [.showFeaturePoints]
     }
     
@@ -121,6 +130,36 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                             //Se agrega el nodo de la manzana al nodo creado sobre el ancla
                             node.addChildNode(markerNode)
                         }
+                case "apple2":
+                    print ("Apple2 marker detected")
+                    let markerScene = SCNScene(named: "art.scnassets/apple/apple.scn")
+                    if let markerNode  = markerScene?.rootNode.childNodes.first{
+                        markerNode.eulerAngles.x = .pi / 2
+                        //Se le asigna un nombre al nodo con la escena
+                        markerNode.name = nombreMarker
+                        //Se guardan las escalas de tamaño originales del nodo
+                        nodesOriginalScales[nombreMarker!] = markerNode.scale
+                        //Se posiciona por sobre el ancla para evitar bug
+                        markerNode.position = SCNVector3(0, 0.1, 0)
+                        //Se agrega el nodo de la manzana al nodo creado sobre el ancla
+                        node.addChildNode(markerNode)
+                    }
+                case "apple3":
+                    print ("Apple3 marker detected")
+                    let markerScene = SCNScene(named: "art.scnassets/apple/apple.scn")
+                    if let markerNode  = markerScene?.rootNode.childNodes.first{
+                        markerNode.eulerAngles.x = .pi / 2
+                        //Se le asigna un nombre al nodo con la escena
+                        markerNode.name = nombreMarker
+                        //Se guardan las escalas de tamaño originales del nodo
+                        nodesOriginalScales[nombreMarker!] = markerNode.scale
+                        //Se posiciona por sobre el ancla para evitar bug
+                        markerNode.position = SCNVector3(0, 0.1, 0)
+                        //Se agrega el nodo de la manzana al nodo creado sobre el ancla
+                        node.addChildNode(markerNode)
+                    }
+                    
+                    
                     case "meat":
                         print ("Meat  marker detected")
                         let markerScene = SCNScene(named: "art.scnassets/meat/meat.scn")
@@ -135,23 +174,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                             //Se agrega el nodo de la manzana al nodo creado sobre el ancla
                             node.addChildNode(markerNode)
                         }
-                        
-                    case "apple2":
-                        print ("Apple marker detected")
-                        let markerScene = SCNScene(named: "art.scnassets/apple/apple.scn")
-                        if let markerNode  = markerScene?.rootNode.childNodes.first{
-                            markerNode.eulerAngles.x = .pi / 2
-                            //Se le asigna un nombre al nodo con la escena
-                            markerNode.name = nombreMarker
-                            //Se guardan las escalas de tamaño originales del nodo
-                            nodesOriginalScales[nombreMarker!] = markerNode.scale
-                            //Se posiciona por sobre el ancla para evitar bug
-                            markerNode.position = SCNVector3(0, 0.1, 0)
-                            //Se agrega el nodo de la manzana al nodo creado sobre el ancla
-                            node.addChildNode(markerNode)
-                        }
                 case "meat2":
-                    print ("Meat  marker detected")
+                    print ("Meat2  marker detected")
                     let markerScene = SCNScene(named: "art.scnassets/meat/meat.scn")
                     if let markerNode  = markerScene?.rootNode.childNodes.first{
                         //markerNode.eulerAngles.z = .pi / 2
@@ -164,7 +188,20 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                         //Se agrega el nodo de la manzana al nodo creado sobre el ancla
                         node.addChildNode(markerNode)
                     }
-                    
+                case "meat3":
+                    print ("Meat3  marker detected")
+                    let markerScene = SCNScene(named: "art.scnassets/meat/meat.scn")
+                    if let markerNode  = markerScene?.rootNode.childNodes.first{
+                        //markerNode.eulerAngles.z = .pi / 2
+                        //Se le asigna un nombre al nodo con la escena
+                        markerNode.name = nombreMarker
+                        //Se guardan las escalas de tamaño originales del nodo
+                        nodesOriginalScales[nombreMarker!] = markerNode.scale
+                        //Se posiciona por sobre el ancla para evitar bug
+                        markerNode.position = SCNVector3(0, 0.1, 0)
+                        //Se agrega el nodo de la manzana al nodo creado sobre el ancla
+                        node.addChildNode(markerNode)
+                    }
                     case "mewtwo":
                         let markerScene = SCNScene(named: "art.scnassets/" + (nombreMarker)! + "/" + nombreMarker! + ".scn")
                         print("Mewtwo marker detected")
