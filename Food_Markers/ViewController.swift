@@ -204,10 +204,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     node.name = "fromAnchor"
     return node
     }
+    
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         var currentNode = SCNNode()
         currentNode = buscarNodoActual()
-        //Que el currentNode sea un nodo cualquiera sin escena o que sea el visible
+        //Que el currentNode sea un nodo con un nombre distinto al que se encuentra en el tope del stack de nodos visibles
         if currentNode.name != visibleNodes.last?.name{
             DispatchQueue.main.async {
                 self.sizeSelection(self.sizeOptionsSegments!)
