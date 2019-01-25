@@ -14,7 +14,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet var sizeOptionsSegments: UISegmentedControl!
-    @IBOutlet var noMarkerLabel: UILabel!
+    @IBOutlet var markerNotVisible: UILabel!
     var nodesOriginalScales = [String:SCNVector3]()
     var visibleNodes = [SCNNode()]
     
@@ -23,11 +23,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         var actualNode = SCNNode()
         actualNode = buscarNodoActual()
         guard actualNode.name != nil else {
-            noMarkerLabel.layer.masksToBounds = true
-            noMarkerLabel.layer.cornerRadius = 4
-            noMarkerLabel.isHidden = false
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-                self.noMarkerLabel.isHidden = true
+            markerNotVisible.layer.masksToBounds = true
+            markerNotVisible.layer.cornerRadius = 4
+            markerNotVisible.isHidden = false
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                self.markerNotVisible.isHidden = true
             }
             return
         }
@@ -62,10 +62,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         for node in sceneView.scene.rootNode.childNodes {
             if node.name == "fromAnchor" && !node.isHidden{
                 actualNode = (node.childNodes.first)!
-//                visibleNodes.append(actualNode)
+                if actualNode == visibleNodes.last {
+                        visibleNodes.append(actualNode)
+                }
             }
         }
-        print(actualNode.name)
         return actualNode
     }
     
@@ -203,16 +204,14 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     node.name = "fromAnchor"
     return node
     }
-//    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
-//        var currentNode = SCNNode()
-//        currentNode = buscarNodoActual()
-//        //Que el currentNode sea un nodo cualquiera sin escena o que sea el visible
-//        if currentNode.name != visibleNodes.last?.name{
-//            DispatchQueue.main.async {
-//                self.sizeOptionsSegments.selectedSegmentIndex = 1
-//                self.visibleNodes.append(currentNode)
-//            }
-//        }
-//
-//    }
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        var currentNode = SCNNode()
+        currentNode = buscarNodoActual()
+        //Que el currentNode sea un nodo cualquiera sin escena o que sea el visible
+        if currentNode.name != visibleNodes.last?.name{
+            DispatchQueue.main.async {
+                self.sizeSelection(self.sizeOptionsSegments!)
+            }
+        }
+    }
 }
