@@ -15,13 +15,16 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet var sizeOptionsSegments: UISegmentedControl!
     @IBOutlet var markerNotVisible: UILabel!
-    var nodesOriginalScales = [String:SCNVector3]()
+    //var nodesScales = [String:SCNVector3]()
     var visibleNodes = [SCNNode()]
+    var nodesScales = ["cuadrados": (Small: SCNVector3(0.001,0.001,0.001), Medium: SCNVector3(0.005,0.005,0.005), Large: SCNVector3(0.01,0.01,0.01)),
+                       "carne": (Small: SCNVector3(0.01,0.01,0.001), Medium: SCNVector3(0.005,0.005,0.005), Large: SCNVector3(2,2,2))]
     
-    //En base a la selección del usuario se cambia el tamaño
+    //Selección de tamaño
     @IBAction func sizeSelection(_ sender: UISegmentedControl) {
         var actualNode = SCNNode()
-        actualNode = buscarNodoActual()
+        actualNode = findActualNode()
+        //Chequeo si nodo actual es uno de los marcadores
         guard actualNode.name != nil else {
             markerNotVisible.layer.masksToBounds = true
             markerNotVisible.layer.cornerRadius = 4
@@ -32,22 +35,21 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             return
         }
             switch sizeOptionsSegments.selectedSegmentIndex{
+                //Pequeño
                 case 0:
-                    actualNode.scale = SCNVector3(nodesOriginalScales[actualNode.name!]!.x * 0.5,
-                                        nodesOriginalScales[actualNode.name!]!.y * 0.5,
-                                        nodesOriginalScales[actualNode.name!]!.z * 0.5)
+                    actualNode.scale = nodesScales[actualNode.name!]!.Small
                     sceneView.scene.rootNode.childNodes.last?.replaceChildNode(
                         sceneView.scene.rootNode.childNodes.last!,
                         with: actualNode)
+                //Mediano
                 case 1:
-                    actualNode.scale = nodesOriginalScales[actualNode.name!]!
+                    actualNode.scale = nodesScales[actualNode.name!]!.Medium
                     sceneView.scene.rootNode.childNodes.last?.replaceChildNode(
                         sceneView.scene.rootNode.childNodes.last!,
                         with: actualNode)
+                //Grande
                 case 2:
-                    actualNode.scale = SCNVector3(nodesOriginalScales[actualNode.name!]!.x * 1.5,
-                                                  nodesOriginalScales[actualNode.name!]!.y * 1.5,
-                                                  nodesOriginalScales[actualNode.name!]!.z * 1.5)
+                    actualNode.scale = nodesScales[actualNode.name!]!.Large
                     sceneView.scene.rootNode.childNodes.last?.replaceChildNode(
                         sceneView.scene.rootNode.childNodes.last!,
                         with: actualNode)
@@ -56,8 +58,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                     print("No segment found")
             }
     }
+    
     //Busca el nodo actual en base a si es visible y al nombre que se le asignó previamente
-    func buscarNodoActual() -> SCNNode {
+    func findActualNode() -> SCNNode {
         var actualNode = SCNNode()
         for node in sceneView.scene.rootNode.childNodes {
             if node.name == "fromAnchor" && !node.isHidden{
@@ -73,7 +76,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     override func viewDidLoad() {
         // Set the view's delegate
         sceneView.delegate = self
-        //sceneView.automaticallyUpdatesLighting = true
+        sceneView.automaticallyUpdatesLighting = true
         sceneView.debugOptions = [.showFeaturePoints]
     }
     
@@ -124,7 +127,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                             //Se le asigna un nombre al nodo con la escena
                             markerNode.name = nombreMarker
                             //Se guardan las escalas de tamaño originales del nodo
-                            nodesOriginalScales[nombreMarker!] = markerNode.scale
+                            markerNode.scale = (nodesScales[nombreMarker!]!.Medium)
                             //Se posiciona por sobre el ancla para evitar bug
                             markerNode.position = SCNVector3(0, 0.1, 0)
                             //Se agrega el nodo de la manzana al nodo creado sobre el ancla
@@ -138,7 +141,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                         //Se le asigna un nombre al nodo con la escena
                         markerNode.name = nombreMarker
                         //Se guardan las escalas de tamaño originales del nodo
-                        nodesOriginalScales[nombreMarker!] = markerNode.scale
                         //Se posiciona por sobre el ancla para evitar bug
                         markerNode.position = SCNVector3(0, 0.1, 0)
                         //Se agrega el nodo de la manzana al nodo creado sobre el ancla
@@ -152,7 +154,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                             //Se le asigna un nombre al nodo con la escena
                             markerNode.name = nombreMarker
                             //Se guardan las escalas de tamaño originales del nodo
-                            nodesOriginalScales[nombreMarker!] = markerNode.scale
                             //Se posiciona por sobre el ancla para evitar bug
                             markerNode.position = SCNVector3(0, 0.1, 0)
                             //Se agrega el nodo de la manzana al nodo creado sobre el ancla
@@ -166,48 +167,24 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                         //Se le asigna un nombre al nodo con la escena
                         markerNode.name = nombreMarker
                         //Se guardan las escalas de tamaño originales del nodo
-                        nodesOriginalScales[nombreMarker!] = markerNode.scale
                         //Se posiciona por sobre el ancla para evitar bug
                         markerNode.position = SCNVector3(0, 0.1, 0)
                         //Se agrega el nodo de la manzana al nodo creado sobre el ancla
                         node.addChildNode(markerNode)
                     }
-                case "meat3":
-                    print ("Meat3  marker detected")
-                    let markerScene = SCNScene(named: "art.scnassets/meat/meat.scn")
-                    if let markerNode  = markerScene?.rootNode.childNodes.first{
-                        //markerNode.eulerAngles.z = .pi / 2
-                        //Se le asigna un nombre al nodo con la escena
-                        markerNode.name = nombreMarker
-                        //Se guardan las escalas de tamaño originales del nodo
-                        nodesOriginalScales[nombreMarker!] = markerNode.scale
-                        //Se posiciona por sobre el ancla para evitar bug
-                        markerNode.position = SCNVector3(0, 0.1, 0)
-                        //Se agrega el nodo de la manzana al nodo creado sobre el ancla
-                        node.addChildNode(markerNode)
-                    }
-                    case "circulo":
-                        let markerScene = SCNScene(named: "art.scnassets/" + (nombreMarker)! + "/" + nombreMarker! + ".scn")
-                        print("Mewtwo marker detected")
-                        if let markerNode = markerScene?.rootNode.childNode(withName: nombreMarker!, recursively: true){
-                            markerNode.position = SCNVector3(x: 0, y: 0.01, z: 0)
-                            markerNode.name = nombreMarker
-                            nodesOriginalScales[nombreMarker!] = markerNode.scale
-                            node.addChildNode(markerNode)
-                        }
                     default:
                         print("No existe referencia")
                     }
                 }
         }
-    // Se le añade un nombre al nodo para identificar su origen posteriormente   
+    // Se le añade un nombre al nodo para identificar su origen
     node.name = "fromAnchor"
     return node
     }
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         var currentNode = SCNNode()
-        currentNode = buscarNodoActual()
+        currentNode = findActualNode()
         //Que el currentNode sea un nodo con un nombre distinto al que se encuentra en el tope del stack de nodos visibles
         if currentNode.name != visibleNodes.last?.name{
             DispatchQueue.main.async {

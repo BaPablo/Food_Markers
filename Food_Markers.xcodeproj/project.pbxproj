@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F478311021FB82D8006DFC5E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F478310F21FB82D8006DFC5E /* GoogleService-Info.plist */; };
+		F478311121FB82D8006DFC5E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F478310F21FB82D8006DFC5E /* GoogleService-Info.plist */; };
+		F478311221FB82D8006DFC5E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F478310F21FB82D8006DFC5E /* GoogleService-Info.plist */; };
 		F490698121DE5ED100C4875B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F490698021DE5ED100C4875B /* AppDelegate.swift */; };
 		F490698321DE5ED100C4875B /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = F490698221DE5ED100C4875B /* art.scnassets */; };
 		F490698521DE5ED100C4875B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F490698421DE5ED100C4875B /* ViewController.swift */; };
@@ -35,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F478310F21FB82D8006DFC5E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F490697D21DE5ED100C4875B /* Food_Markers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Food_Markers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F490698021DE5ED100C4875B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F490698221DE5ED100C4875B /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -106,6 +110,7 @@
 				F490698921DE5ED100C4875B /* Assets.xcassets */,
 				F490698B21DE5ED100C4875B /* LaunchScreen.storyboard */,
 				F490698E21DE5ED100C4875B /* Info.plist */,
+				F478310F21FB82D8006DFC5E /* GoogleService-Info.plist */,
 			);
 			path = Food_Markers;
 			sourceTree = "<group>";
@@ -237,6 +242,7 @@
 			files = (
 				F490698321DE5ED100C4875B /* art.scnassets in Resources */,
 				F490698D21DE5ED100C4875B /* LaunchScreen.storyboard in Resources */,
+				F478311021FB82D8006DFC5E /* GoogleService-Info.plist in Resources */,
 				F490698A21DE5ED100C4875B /* Assets.xcassets in Resources */,
 				F490698821DE5ED100C4875B /* Main.storyboard in Resources */,
 			);
@@ -246,6 +252,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F478311121FB82D8006DFC5E /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,6 +260,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F478311221FB82D8006DFC5E /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,7 +361,9 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1.0.0;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = U42PWL562Q;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -413,7 +423,9 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1.0.0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = U42PWL562Q;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;

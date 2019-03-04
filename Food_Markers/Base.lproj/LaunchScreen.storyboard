@@ -1,7 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" systemVersion="17A277" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="ipad12_9rounded" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -11,15 +15,51 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ea6-qG-mtH" userLabel="Middle container">
+                                <rect key="frame" x="128" y="466.5" width="768" height="433"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchImage" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tis-S2-Jv0">
+                                        <rect key="frame" x="190.5" y="87.5" width="387" height="258"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="258" id="Ni9-AZ-xV4"/>
+                                            <constraint firstAttribute="width" constant="387" id="ksg-4P-mOb"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Test" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dLF-MJ-HQ7">
+                                        <rect key="frame" x="360.5" y="55.5" width="47" height="32"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                        <color key="textColor" red="0.0" green="0.32852089410000002" blue="0.57488495110000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="433" id="7o9-kM-qgK"/>
+                                    <constraint firstItem="Tis-S2-Jv0" firstAttribute="top" secondItem="dLF-MJ-HQ7" secondAttribute="bottom" id="96Y-vU-icQ"/>
+                                    <constraint firstItem="Tis-S2-Jv0" firstAttribute="centerX" secondItem="ea6-qG-mtH" secondAttribute="centerX" id="Pm7-PE-20V"/>
+                                    <constraint firstAttribute="width" constant="768" id="V0K-Ld-0Lh"/>
+                                    <constraint firstItem="Tis-S2-Jv0" firstAttribute="centerY" secondItem="ea6-qG-mtH" secondAttribute="centerY" id="gfV-oJ-qYa"/>
+                                    <constraint firstItem="dLF-MJ-HQ7" firstAttribute="centerX" secondItem="ea6-qG-mtH" secondAttribute="centerX" id="oSn-ok-Ho6"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ea6-qG-mtH" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="EvF-7T-E3B"/>
+                            <constraint firstItem="ea6-qG-mtH" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="paF-iy-dUk"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="51.5625" y="372.91361639824299"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="launchImage" width="155" height="100"/>
+    </resources>
 </document>
