@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="ipad12_9rounded" orientation="portrait">
+    <device id="ipad12_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -18,48 +18,43 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ea6-qG-mtH" userLabel="Middle container">
-                                <rect key="frame" x="128" y="466.5" width="768" height="433"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ea6-qG-mtH" userLabel="middle container">
+                                <rect key="frame" x="0.0" y="536.5" width="1024" height="293"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchImage" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tis-S2-Jv0">
-                                        <rect key="frame" x="190.5" y="87.5" width="387" height="258"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="258" id="Ni9-AZ-xV4"/>
-                                            <constraint firstAttribute="width" constant="387" id="ksg-4P-mOb"/>
-                                        </constraints>
+                                    <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logos" translatesAutoresizingMaskIntoConstraints="NO" id="o3A-Mw-di1">
+                                        <rect key="frame" x="376.5" y="0.0" width="271" height="146"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Test" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dLF-MJ-HQ7">
-                                        <rect key="frame" x="360.5" y="55.5" width="47" height="32"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                                        <color key="textColor" red="0.0" green="0.32852089410000002" blue="0.57488495110000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logos2" translatesAutoresizingMaskIntoConstraints="NO" id="Jj2-oY-ToA">
+                                        <rect key="frame" x="385" y="198" width="254" height="95"/>
+                                    </imageView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.97647058823529409" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="433" id="7o9-kM-qgK"/>
-                                    <constraint firstItem="Tis-S2-Jv0" firstAttribute="top" secondItem="dLF-MJ-HQ7" secondAttribute="bottom" id="96Y-vU-icQ"/>
-                                    <constraint firstItem="Tis-S2-Jv0" firstAttribute="centerX" secondItem="ea6-qG-mtH" secondAttribute="centerX" id="Pm7-PE-20V"/>
-                                    <constraint firstAttribute="width" constant="768" id="V0K-Ld-0Lh"/>
-                                    <constraint firstItem="Tis-S2-Jv0" firstAttribute="centerY" secondItem="ea6-qG-mtH" secondAttribute="centerY" id="gfV-oJ-qYa"/>
-                                    <constraint firstItem="dLF-MJ-HQ7" firstAttribute="centerX" secondItem="ea6-qG-mtH" secondAttribute="centerX" id="oSn-ok-Ho6"/>
+                                    <constraint firstItem="Jj2-oY-ToA" firstAttribute="centerX" secondItem="ea6-qG-mtH" secondAttribute="centerX" id="3na-RP-dQD"/>
+                                    <constraint firstAttribute="height" constant="293" id="P1f-Ew-e1u"/>
+                                    <constraint firstAttribute="bottom" secondItem="Jj2-oY-ToA" secondAttribute="bottom" id="RQn-Ry-5Pe"/>
+                                    <constraint firstItem="o3A-Mw-di1" firstAttribute="centerX" secondItem="ea6-qG-mtH" secondAttribute="centerX" id="flD-7D-c2A"/>
+                                    <constraint firstItem="o3A-Mw-di1" firstAttribute="top" secondItem="ea6-qG-mtH" secondAttribute="top" id="gcD-hW-pP2"/>
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                        <color key="backgroundColor" red="0.24705882352941178" green="0.44705882352941173" blue="0.68627450980392157" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="ea6-qG-mtH" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="EvF-7T-E3B"/>
-                            <constraint firstItem="ea6-qG-mtH" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="paF-iy-dUk"/>
+                            <constraint firstItem="ea6-qG-mtH" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="1PP-sC-a8t"/>
+                            <constraint firstItem="ea6-qG-mtH" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="3yO-e5-Cyi"/>
+                            <constraint firstItem="ea6-qG-mtH" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="h0M-fH-ijN"/>
+                            <constraint firstItem="ea6-qG-mtH" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="vqI-LX-vJJ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="51.5625" y="372.91361639824299"/>
+            <point key="canvasLocation" x="51.5625" y="372.47437774524155"/>
         </scene>
     </scenes>
     <resources>
-        <image name="launchImage" width="155" height="100"/>
+        <image name="Logos" width="271" height="146"/>
+        <image name="Logos2" width="254" height="95"/>
     </resources>
 </document>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
-    <device id="ipad10_5" orientation="landscape">
+    <device id="ipad12_9rounded" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -18,40 +18,40 @@
                         <viewControllerLayoutGuide type="bottom" id="EJv-KQ-bzW"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="WEQ-wl-UKH">
-                        <rect key="frame" x="0.0" y="0.0" width="1112" height="834"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yI4-3K-9WQ">
-                                <rect key="frame" x="0.0" y="0.0" width="1112" height="834"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                             </arscnView>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="AoM-6f-y9x">
-                                <rect key="frame" x="857" y="696" width="215" height="29"/>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="¡No hay un marcador a la vista!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eoz-KA-Auv">
+                                <rect key="frame" x="-23.5" y="302.5" width="367" height="33.5"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.76266163793103448" green="0.76266163793103448" blue="0.76266163793103448" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                <color key="textColor" red="0.066666666666666666" green="0.1764705882352941" blue="0.30588235294117649" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="AoM-6f-y9x">
+                                <rect key="frame" x="778" y="1218" width="206" height="29"/>
                                 <segments>
                                     <segment title="Pequeño"/>
                                     <segment title="Normal"/>
                                     <segment title="Grande"/>
                                 </segments>
+                                <color key="tintColor" red="0.2470588235" green="0.44705882349999998" blue="0.68627450980000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="sizeSelection:" destination="BV1-FR-VrT" eventType="valueChanged" id="PyX-4x-PEX"/>
                                 </connections>
                             </segmentedControl>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¡No hay un marcador a la vista!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eoz-KA-Auv">
-                                <rect key="frame" x="368" y="624" width="380" height="35"/>
-                                <color key="backgroundColor" red="0.76266163793103448" green="0.76266163793103448" blue="0.76266163793103448" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="29"/>
-                                <color key="textColor" red="0.0" green="0.32852089410000002" blue="0.57488495110000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="AoM-6f-y9x" secondAttribute="trailing" constant="40" id="28I-Kd-7eX"/>
                             <constraint firstAttribute="bottom" secondItem="yI4-3K-9WQ" secondAttribute="bottom" id="47Y-bh-ib7"/>
                             <constraint firstItem="yI4-3K-9WQ" firstAttribute="leading" secondItem="WEQ-wl-UKH" secondAttribute="leading" id="6VM-dn-gtk"/>
-                            <constraint firstAttribute="trailing" secondItem="eoz-KA-Auv" secondAttribute="trailing" constant="364" id="Jha-mD-sGR"/>
+                            <constraint firstAttribute="trailing" secondItem="AoM-6f-y9x" secondAttribute="trailing" constant="40" id="OtE-QQ-FVx"/>
+                            <constraint firstItem="EJv-KQ-bzW" firstAttribute="top" secondItem="AoM-6f-y9x" secondAttribute="bottom" constant="50" id="RDo-JF-q4M"/>
                             <constraint firstAttribute="trailing" secondItem="yI4-3K-9WQ" secondAttribute="trailing" id="aKB-ZI-XGf"/>
-                            <constraint firstItem="EJv-KQ-bzW" firstAttribute="top" secondItem="eoz-KA-Auv" secondAttribute="bottom" constant="125" id="e9F-Xy-wxl"/>
-                            <constraint firstItem="EJv-KQ-bzW" firstAttribute="top" secondItem="AoM-6f-y9x" secondAttribute="bottom" constant="60" id="vod-f1-GiB"/>
                             <constraint firstItem="yI4-3K-9WQ" firstAttribute="top" secondItem="WEQ-wl-UKH" secondAttribute="top" id="zDX-4c-5tV"/>
                         </constraints>
                     </view>
@@ -65,7 +65,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3.2374100719424463" y="125.17985611510792"/>
+            <point key="canvasLocation" x="-3.5156249999999996" y="124.7437774524158"/>
         </scene>
     </scenes>
 </document>

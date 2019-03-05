@@ -15,11 +15,15 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet var sizeOptionsSegments: UISegmentedControl!
     @IBOutlet var markerNotVisible: UILabel!
-    //var nodesScales = [String:SCNVector3]()
     var visibleNodes = [SCNNode()]
-    var nodesScales = ["apple": (small: SCNVector3(0.001, 0.001, 0.001), medium: SCNVector3(0.005, 0.005, 0.005), large: SCNVector3(0.01, 0.01, 0.01)),
-                       "meat": (small: SCNVector3(0.001, 0.001, 0.001), medium: SCNVector3(0.005, 0.005, 0.005), large: SCNVector3(0.01, 0.01, 0.01))]
-    
+    var nodesScales = ["apple": (small: SCNVector3(0.001, 0.001, 0.001),
+                                 medium: SCNVector3(0.005, 0.005, 0.005),
+                                 large: SCNVector3(0.01, 0.01, 0.01)
+                                ),
+                       "meat": (small: SCNVector3(0.001, 0.001, 0.001),
+                                medium: SCNVector3(0.005, 0.005, 0.005),
+                                large: SCNVector3(0.01, 0.01, 0.01)
+                                )]
     //Selección de tamaño
     @IBAction func sizeSelection(_ sender: UISegmentedControl) {
         var actualNode = SCNNode()
@@ -59,12 +63,12 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             }
     }
     
-    //Busca el nodo actual en base a si es visible y al nombre que se le asignó previamente
+    //Busca el nodo que que contiene el modelo 3D y se encuentra visible
     func findActualNode() -> SCNNode {
         var actualNode = SCNNode()
         for node in sceneView.scene.rootNode.childNodes {
             if node.name == "fromAnchor" && !node.isHidden{
-                actualNode = (node.childNodes.first)!
+                actualNode = node.childNodes.first!
                 if actualNode == visibleNodes.last {
                         visibleNodes.append(actualNode)
                 }
@@ -77,12 +81,10 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Set the view's delegate
         sceneView.delegate = self
         sceneView.automaticallyUpdatesLighting = true
-        sceneView.debugOptions = [.showFeaturePoints]
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
         //Busqueda del directorio con los marcadores a detectar
         guard let markers = ARReferenceImage.referenceImages(inGroupNamed: "Markers", bundle: nil)
             else {
@@ -112,7 +114,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     //MARK: -ARSCNViewDelegate
     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode?{
-
         let node = SCNNode()
         if anchor is ARImageAnchor {
             if let imageAnchor = anchor as? ARImageAnchor{
@@ -124,8 +125,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                         let markerScene = SCNScene(named: "art.scnassets/apple/apple.scn")
                         if let markerNode  = markerScene?.rootNode.childNodes.first{
                             markerNode.eulerAngles.x = .pi / 2
-                            //Se le asigna un nombre al nodo con la escena
-                            markerNode.name = nombreMarker
                             //Se asignan las escalas de tamaño originales del nodo
                             markerNode.scale = nodesScales[nombreMarker!]!.medium
                             //Se posiciona por sobre el ancla para evitar bug
@@ -138,8 +137,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                         let markerScene = SCNScene(named: "art.scnassets/meat/meat.scn")
                         if let markerNode  = markerScene?.rootNode.childNodes.first{
                             //markerNode.eulerAngles.z = .pi / 2
-                            //Se le asigna un nombre al nodo con la escena
-                            markerNode.name = nombreMarker
                             //Se guardan las escalas de tamaño originales del nodo
                             markerNode.scale = nodesScales[nombreMarker!]!.medium
                             //Se posiciona por sobre el ancla para evitar bug
@@ -152,16 +149,18 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                     }
             }
         }
-    // Se le añade un nombre al nodo para identificar su origen
-    node.name = "fromAnchor"
-    return node
+        // Se le añade un nombre al nodo para identificar su origen
+        node.name = "fromAnchor"
+        return node
     }
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
-        var currentNode = SCNNode()
-        currentNode = findActualNode()
-        //Que el currentNode sea un nodo con un nombre distinto al que se encuentra en el tope del stack de nodos visibles
-        if currentNode.name != visibleNodes.last?.name{
+        var actualNode = SCNNode()
+        actualNode = findActualNode()
+        //Nodo con un nombre distinto al que se encuentra en el tope del stack de nodos visibles
+        print(actualNode.name)
+        print(visibleNodes.last?.name)
+        if actualNode.name != visibleNodes.last?.name{
             DispatchQueue.main.async {
                 self.sizeSelection(self.sizeOptionsSegments!)
             }
