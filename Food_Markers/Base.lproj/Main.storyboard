@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
-    <device id="ipad12_9rounded" orientation="portrait">
+    <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -18,22 +18,24 @@
                         <viewControllerLayoutGuide type="bottom" id="EJv-KQ-bzW"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="WEQ-wl-UKH">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yI4-3K-9WQ">
-                                <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </arscnView>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="¡No hay un marcador a la vista!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eoz-KA-Auv">
-                                <rect key="frame" x="-23.5" y="302.5" width="367" height="33.5"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¡No hay un marcador a la vista!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.29999999999999999" translatesAutoresizingMaskIntoConstraints="NO" id="eoz-KA-Auv">
+                                <rect key="frame" x="15" y="271" width="290.5" height="26.5"/>
                                 <color key="backgroundColor" red="0.76266163793103448" green="0.76266163793103448" blue="0.76266163793103448" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                 <color key="textColor" red="0.066666666666666666" green="0.1764705882352941" blue="0.30588235294117649" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                </variation>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="AoM-6f-y9x">
-                                <rect key="frame" x="778" y="1218" width="206" height="29"/>
+                                <rect key="frame" x="74" y="446" width="206" height="29"/>
                                 <segments>
                                     <segment title="Pequeño"/>
                                     <segment title="Normal"/>
@@ -49,6 +51,8 @@
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="yI4-3K-9WQ" secondAttribute="bottom" id="47Y-bh-ib7"/>
                             <constraint firstItem="yI4-3K-9WQ" firstAttribute="leading" secondItem="WEQ-wl-UKH" secondAttribute="leading" id="6VM-dn-gtk"/>
+                            <constraint firstItem="eoz-KA-Auv" firstAttribute="centerX" secondItem="WEQ-wl-UKH" secondAttribute="centerX" id="8uJ-sl-yPD"/>
+                            <constraint firstItem="eoz-KA-Auv" firstAttribute="centerY" secondItem="WEQ-wl-UKH" secondAttribute="centerY" id="CYx-nI-mxg"/>
                             <constraint firstAttribute="trailing" secondItem="AoM-6f-y9x" secondAttribute="trailing" constant="40" id="OtE-QQ-FVx"/>
                             <constraint firstItem="EJv-KQ-bzW" firstAttribute="top" secondItem="AoM-6f-y9x" secondAttribute="bottom" constant="50" id="RDo-JF-q4M"/>
                             <constraint firstAttribute="trailing" secondItem="yI4-3K-9WQ" secondAttribute="trailing" id="aKB-ZI-XGf"/>
