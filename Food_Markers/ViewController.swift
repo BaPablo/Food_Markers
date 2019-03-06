@@ -15,7 +15,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet var sizeOptionsSegments: UISegmentedControl!
     @IBOutlet var markerNotVisible: UILabel!
-    var visibleNodes = [SCNNode()]
+    var visibleNode = SCNNode()
     var nodesScales = ["apple": (small: SCNVector3(0.001, 0.001, 0.001),
                                  medium: SCNVector3(0.005, 0.005, 0.005),
                                  large: SCNVector3(0.01, 0.01, 0.01)
@@ -67,11 +67,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     func findActualNode() -> SCNNode {
         var actualNode = SCNNode()
         for node in sceneView.scene.rootNode.childNodes {
-            if node.name == "fromAnchor" && !node.isHidden{
+            if node.name == "fromAnchor" && !node.isHidden {
                 actualNode = node.childNodes.first!
-                if actualNode == visibleNodes.last {
-                        visibleNodes.append(actualNode)
-                }
+                visibleNode = actualNode
             }
         }
         return actualNode
@@ -157,10 +155,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         var actualNode = SCNNode()
         actualNode = findActualNode()
-        //Nodo con un nombre distinto al que se encuentra en el tope del stack de nodos visibles
-        print(actualNode.name)
-        print(visibleNodes.last?.name)
-        if actualNode.name != visibleNodes.last?.name{
+        if actualNode == visibleNode{
             DispatchQueue.main.async {
                 self.sizeSelection(self.sizeOptionsSegments!)
             }
