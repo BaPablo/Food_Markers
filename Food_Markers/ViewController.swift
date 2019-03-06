@@ -155,6 +155,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         var actualNode = SCNNode()
         actualNode = findActualNode()
+        print (actualNode)
+        print(findActualNode())
         if actualNode == visibleNode{
             DispatchQueue.main.async {
                 self.sizeSelection(self.sizeOptionsSegments!)
