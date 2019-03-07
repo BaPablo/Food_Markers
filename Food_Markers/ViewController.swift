@@ -38,7 +38,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             }
             return
         }
-            switch sizeOptionsSegments.selectedSegmentIndex{
+            switch sizeOptionsSegments.selectedSegmentIndex {
                 //Pequeño
                 case 0:
                     actualNode.scale = nodesScales[actualNode.name!]!.small
@@ -66,16 +66,13 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     //Busca el nodo que se encuentra visible
     func findActualNode() -> SCNNode {
         var actualNode = SCNNode()
-        for node in sceneView.scene.rootNode.childNodes {
-            //Nodo visible
-            if !node.isHidden {
+        for node in sceneView.scene.rootNode.childNodes where !node.isHidden {
                 actualNode = node
                 //Nodo visible y que tiene un modelo 3D
                 if node.name == "fromImageAnchor" {
                     actualNode = node.childNodes.first!
                     visibleMarkerNode = actualNode
                 }
-            }
         }
         return actualNode
     }
@@ -115,18 +112,18 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.session.pause()
     }
     
-    //MARK: -ARSCNViewDelegate
-    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode?{
+    //MARK:-ARSCNViewDelegate
+    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
         let node = SCNNode()
         if anchor is ARImageAnchor {
-            if let imageAnchor = anchor as? ARImageAnchor{
+            if let imageAnchor = anchor as? ARImageAnchor {
                 let nombreMarker = imageAnchor.referenceImage.name
                 //En base al nombre del marcador se muestra la escena y se agrega al nodo correspondiente
                 switch (nombreMarker) {
                     case "apple":
                         print ("Apple marker detected")
                         let markerScene = SCNScene(named: "art.scnassets/apple/apple.scn")
-                        if let markerNode  = markerScene?.rootNode.childNodes.first{
+                        if let markerNode  = markerScene?.rootNode.childNodes.first {
                             markerNode.eulerAngles.x = .pi / 2
                             //Se asignan las escalas de tamaño originales del nodo
                             markerNode.scale = nodesScales[nombreMarker!]!.medium
@@ -138,7 +135,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                     case "meat":
                         print ("Meat  marker detected")
                         let markerScene = SCNScene(named: "art.scnassets/meat/meat.scn")
-                        if let markerNode  = markerScene?.rootNode.childNodes.first{
+                        if let markerNode  = markerScene?.rootNode.childNodes.first {
                             //markerNode.eulerAngles.z = .pi / 2
                             //Se guardan las escalas de tamaño originales del nodo
                             markerNode.scale = nodesScales[nombreMarker!]!.medium
