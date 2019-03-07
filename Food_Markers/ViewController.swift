@@ -15,7 +15,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet var sizeOptionsSegments: UISegmentedControl!
     @IBOutlet var markerNotVisible: UILabel!
-    var visibleNode = SCNNode()
+    var visibleMarkerNode = SCNNode()
     var nodesScales = ["apple": (small: SCNVector3(0.001, 0.001, 0.001),
                                  medium: SCNVector3(0.005, 0.005, 0.005),
                                  large: SCNVector3(0.01, 0.01, 0.01)
@@ -57,19 +57,24 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                     sceneView.scene.rootNode.childNodes.last?.replaceChildNode(
                         sceneView.scene.rootNode.childNodes.last!,
                         with: actualNode)
+                //Caso -1
                 default:
-                    // Caso -1
                     print("No segment found")
             }
     }
     
-    //Busca el nodo que que contiene el modelo 3D y se encuentra visible
+    //Busca el nodo que se encuentra visible
     func findActualNode() -> SCNNode {
         var actualNode = SCNNode()
         for node in sceneView.scene.rootNode.childNodes {
-            if node.name == "fromAnchor" && !node.isHidden {
-                actualNode = node.childNodes.first!
-                visibleNode = actualNode
+            //Nodo visible
+            if !node.isHidden {
+                actualNode = node
+                //Nodo visible y que tiene un modelo 3D
+                if node.name == "fromImageAnchor" {
+                    actualNode = node.childNodes.first!
+                    visibleMarkerNode = actualNode
+                }
             }
         }
         return actualNode
@@ -146,18 +151,16 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                         print("No existe referencia")
                     }
             }
+            // Se le añade un nombre al nodo para identificar su origen
+            node.name = "fromImageAnchor"
         }
-        // Se le añade un nombre al nodo para identificar su origen
-        node.name = "fromAnchor"
         return node
     }
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         var actualNode = SCNNode()
         actualNode = findActualNode()
-        print (actualNode)
-        print(findActualNode())
-        if actualNode == visibleNode{
+        if actualNode == visibleMarkerNode {
             DispatchQueue.main.async {
                 self.sizeSelection(self.sizeOptionsSegments!)
             }
