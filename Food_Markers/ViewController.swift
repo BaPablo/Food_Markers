@@ -16,7 +16,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet var sizeOptionsSegments: UISegmentedControl!
     @IBOutlet var markerNotVisible: UILabel!
     var visibleMarkerNode = SCNNode()
-    var nodesScales = ["apple": (small: SCNVector3(0.001, 0.001, 0.001),
+    var nodesScales = ["apple": (small: SCNVector3(0.003, 0.003, 0.003),
                                  medium: SCNVector3(0.005, 0.005, 0.005),
                                  large: SCNVector3(0.01, 0.01, 0.01)
                                 ),
@@ -121,7 +121,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                 //En base al nombre del marcador se muestra la escena y se agrega al nodo correspondiente
                 switch (nombreMarker) {
                     case "apple":
-                        let markerNode = add3DModel(eulerAngles: (.pi/2,0,0), position: SCNVector3(0,0.05,0), name: nombreMarker!)
+                        let markerNode = add3DModel(eulerAngles: (.pi/2,0,0), position: SCNVector3(0,0.1,0), name: nombreMarker!)
                         node.addChildNode(markerNode)
 
                     case "meat":
