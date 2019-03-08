@@ -122,28 +122,14 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                 switch (nombreMarker) {
                     case "apple":
                         print ("Apple marker detected")
-                        let markerScene = SCNScene(named: "art.scnassets/apple/apple.scn")
-                        if let markerNode  = markerScene?.rootNode.childNodes.first {
-                            markerNode.eulerAngles.x = .pi / 2
-                            //Se asignan las escalas de tamaño originales del nodo
-                            markerNode.scale = nodesScales[nombreMarker!]!.medium
-                            //Se posiciona por sobre el ancla para evitar bug
-                            markerNode.position = SCNVector3(0, 0.1, 0)
-                            //Se agrega el nodo de la manzana al nodo creado sobre el ancla
-                            node.addChildNode(markerNode)
-                        }
+                        let markerNode = add3DModel(eulerAngles: (.pi/2,0,0), position: SCNVector3(0,0.1,0), name: nombreMarker!)
+                        node.addChildNode(markerNode)
+                    
                     case "meat":
                         print ("Meat  marker detected")
-                        let markerScene = SCNScene(named: "art.scnassets/meat/meat.scn")
-                        if let markerNode  = markerScene?.rootNode.childNodes.first {
-                            //markerNode.eulerAngles.z = .pi / 2
-                            //Se guardan las escalas de tamaño originales del nodo
-                            markerNode.scale = nodesScales[nombreMarker!]!.medium
-                            //Se posiciona por sobre el ancla para evitar bug
-                            markerNode.position = SCNVector3(0, 0.1, 0)
-                            //Se agrega el nodo de la manzana al nodo creado sobre el ancla
-                            node.addChildNode(markerNode)
-                        }
+                        let markerNode = add3DModel(eulerAngles: (0,0,0), position: SCNVector3(0,0.1,0), name: nombreMarker!)
+                        node.addChildNode(markerNode)
+                    
                     default:
                         print("No existe referencia")
                     }
@@ -152,6 +138,21 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             node.name = "fromImageAnchor"
         }
         return node
+    }
+    
+    func add3DModel(eulerAngles: (x: Float,y: Float,z: Float), position: SCNVector3, name:String ) -> SCNNode {
+        let markerScene = SCNScene(named: "art.scnassets/" + name + "/" +  name + ".scn")
+        if let markerNode  = markerScene?.rootNode.childNodes.first {
+            markerNode.eulerAngles.x = eulerAngles.x
+            markerNode.eulerAngles.y = eulerAngles.y
+            markerNode.eulerAngles.z = eulerAngles.z
+            markerNode.position = position
+            markerNode.scale = (nodesScales[name]?.medium)!
+            return markerNode
+        } else {
+            //Corregir
+            return SCNNode()
+        }
     }
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
