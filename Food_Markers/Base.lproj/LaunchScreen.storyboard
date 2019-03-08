@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina3_5" orientation="portrait">
+    <device id="ipad10_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,17 +15,17 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1112"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ea6-qG-mtH" userLabel="middle container">
-                                <rect key="frame" x="0.0" y="93.5" width="320" height="293"/>
+                                <rect key="frame" x="0.0" y="409.5" width="834" height="293"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logos" translatesAutoresizingMaskIntoConstraints="NO" id="o3A-Mw-di1">
-                                        <rect key="frame" x="24.5" y="0.0" width="271" height="146"/>
+                                        <rect key="frame" x="300" y="0.0" width="234" height="131"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logos2" translatesAutoresizingMaskIntoConstraints="NO" id="Jj2-oY-ToA">
-                                        <rect key="frame" x="33" y="198" width="254" height="95"/>
+                                        <rect key="frame" x="290" y="198" width="254" height="95"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.97647058823529409" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
@@ -54,7 +54,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Logos" width="271" height="146"/>
+        <image name="Logos" width="234" height="131"/>
         <image name="Logos2" width="254" height="95"/>
     </resources>
 </document>

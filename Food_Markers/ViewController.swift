@@ -121,8 +121,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                 //En base al nombre del marcador se muestra la escena y se agrega al nodo correspondiente
                 switch (nombreMarker) {
                     case "apple":
-                        print ("Apple marker detected")
-                        let markerNode = add3DModel(eulerAngles: (.pi/2,0,0), position: SCNVector3(0,0.1,0), name: nombreMarker!)
+                        let markerNode = add3DModel(eulerAngles: (.pi/2,0,0), position: SCNVector3(0,0.05,0), name: nombreMarker!)
                         node.addChildNode(markerNode)
 
                     case "meat":
