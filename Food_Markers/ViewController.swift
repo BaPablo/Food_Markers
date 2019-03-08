@@ -124,12 +124,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                         print ("Apple marker detected")
                         let markerNode = add3DModel(eulerAngles: (.pi/2,0,0), position: SCNVector3(0,0.1,0), name: nombreMarker!)
                         node.addChildNode(markerNode)
-                    
+
                     case "meat":
-                        print ("Meat  marker detected")
                         let markerNode = add3DModel(eulerAngles: (0,0,0), position: SCNVector3(0,0.1,0), name: nombreMarker!)
                         node.addChildNode(markerNode)
-                    
+
                     default:
                         print("No existe referencia")
                     }
@@ -140,7 +139,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         return node
     }
     
-    func add3DModel(eulerAngles: (x: Float,y: Float,z: Float), position: SCNVector3, name:String ) -> SCNNode {
+    func add3DModel(eulerAngles: (x: Float, y: Float, z: Float), position: SCNVector3, name: String ) -> SCNNode {
+        print (name + " marker detected")
         let markerScene = SCNScene(named: "art.scnassets/" + name + "/" +  name + ".scn")
         if let markerNode  = markerScene?.rootNode.childNodes.first {
             markerNode.eulerAngles.x = eulerAngles.x
